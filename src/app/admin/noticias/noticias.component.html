@@ -1,0 +1,21 @@
+<div class="noticias-container">
+  <h1>Noticias</h1>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <ul *ngIf="noticias.length > 0">
+    <li *ngFor="let noticia of noticias" class="noticia-item">
+      <div class="noticia-content">
+        <img [src]="getFullImageUrl(noticia.imagen)" alt="{{ noticia.titulo }}" class="noticia-imagen">
+        <div class="noticia-texto">
+          <h2>{{ noticia.titulo }}</h2>
+          <p>{{ noticia.descripcion | slice:0:100 }}...</p> <!-- Mostrar solo un resumen -->
+          <button class="btn btn-secondary" [routerLink]="['/admin/noticias/edit', noticia.idnoticia]">Editar</button>
+          <button class="btn btn-danger" (click)="eliminarNoticia(noticia.idnoticia)">Eliminar</button>
+          <button class="btn btn-primary" (click)="verDetalle(noticia.idnoticia)">Ver Detalle</button>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <div *ngIf="noticias.length === 0 && !errorMessage">
+    No hay noticias disponibles.
+  </div>
+</div>

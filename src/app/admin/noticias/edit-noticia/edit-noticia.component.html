@@ -1,0 +1,59 @@
+<div class="noticia-form-container">
+    <h1>Editar Noticia</h1>
+    <form *ngIf="noticia" (ngSubmit)="saveNoticia()">
+      <div class="form-group">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" [(ngModel)]="noticia.titulo" name="titulo" required>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" [(ngModel)]="noticia.descripcion" name="descripcion" rows="5" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="imagen">Imagen:</label>
+        <input type="file" id="imagen" (change)="onFileSelected($event)">
+        <div *ngIf="noticia?.imagen">
+          <img [src]="getFullImageUrl(noticia.imagen)" alt="{{ noticia.titulo }}" class="noticia-imagen">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fecha_hora">Fecha y Hora:</label>
+        <input type="datetime-local" id="fecha_hora" [(ngModel)]="noticia.fecha_hora" name="fecha_hora">
+      </div>
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <select id="status" [(ngModel)]="noticia.status" name="status">
+          <option value="">Seleccione uno</option>
+          <option value="Publicada">Publicada</option>
+          <option value="Desactivada o Archivada">Desactivada o Archivada</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="privilegio">Prioridad:</label>
+        <select id="privilegio" [(ngModel)]="noticia.privilegio" name="privilegio" required>
+          <option selected disabled value="">Seleccione Uno</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="tags_idtags">Tags:</label>
+        <div *ngFor="let tagId of noticia.tags_idtags">
+          {{ getTagNameById(tagId) }} <button type="button" (click)="deleteTag(tagId)">Eliminar</button>
+        </div>
+        <select (change)="addTag($event)">
+          <option value="">Seleccione uno</option>
+          <option *ngFor="let tag of tags" [value]="tag.idtags">{{ tag.nombre }}</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Actualizar</button>
+    </form>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  
+    <!-- Sección para mostrar el JSON completo de la noticia -->
+    <pre>{{ noticia | json }}</pre>
+  </div>
+  

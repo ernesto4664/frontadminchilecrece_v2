@@ -1,0 +1,21 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #1c1c1c;
+    color: white;
+  
+    .navbar-brand a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.5rem;
+    }
+  
+    .navbar-right a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+    }
+  }
+  

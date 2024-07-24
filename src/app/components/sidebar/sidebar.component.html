@@ -1,0 +1,26 @@
+<div class="sidebar">
+  <nav>
+    <ul>
+      <li (click)="toggleMenu('noticias')">
+        Noticias
+        <ul *ngIf="menuState['noticias']">
+          <li><a routerLink="/admin/noticias/add">Agregar nueva noticia</a></li>
+          <li><a routerLink="/admin/noticias">Ver todas las noticias</a></li>
+        </ul>
+      </li>
+      <li (click)="toggleMenu('tags')">
+        Tags
+        <ul *ngIf="menuState['tags']">
+          <li><a routerLink="/admin/tags/add">Agregar nuevo tag</a></li>
+          <li><a routerLink="/admin/tags">Ver todos los tags</a></li>
+        </ul>
+      </li>
+      <li (click)="toggleMenu('usuariosapp')">
+        Usuarios registrados en la App
+        <ul *ngIf="menuState['usuariosapp']">
+          <li><a routerLink="/usuariosapp">Ver a todos los usuarios registrados en la app</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
