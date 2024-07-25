@@ -2,30 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-
-interface Familiar {
-  id: number;
-  nombres: string;
-  apellidos: string;
-  parentesco?: string;
-  edad?: number;
-  sexo?: string;
-  fecha_nacimiento?: string;
-  semanasEmbarazo?: { semana: number };
-  tipoderegistro_id: number;
-}
-
-interface Usuario {
-  id: number;
-  nombres: string;
-  apellidos: string;
-  email: string;
-  region?: { nombre: string };
-  comuna?: { nombre: string };
-  edad?: number;
-  sexo?: string;
-  familiares?: Familiar[];
-}
+import { Usuario } from '../models/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +16,19 @@ export class UsuariosAppService {
     return this.http.get<{ data: Usuario[] }>(`${this.apiUrl}/users-with-families`).pipe(
       map(response => {
         console.log('Response:', response);
-        return response.data;
+        return response.data.map(usuario => {
+          // Asignar etapa en base al tipoderegistro_id
+          if (usuario.familiares) {
+            usuario.familiares.forEach(familiar => {
+              if (familiar.tipoderegistro_id === 1 || familiar.tipoderegistro_id === 3) {
+                familiar.etapa = 'Gestación';
+              } else if (familiar.tipoderegistro_id === 2) {
+                familiar.etapa = 'Crecimiento';
+              }
+            });
+          }
+          return usuario;
+        });
       }),
       catchError(this.handleError)
     );

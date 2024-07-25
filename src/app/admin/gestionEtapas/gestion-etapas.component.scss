@@ -1,0 +1,69 @@
+/* gestión-etapas.component.scss */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .add-link {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .add-link:hover {
+    background-color: #0056b3;
+  }
+  
+  .styled-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .styled-table th,
+  .styled-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .styled-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .styled-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .action-link {
+    margin-right: 10px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .action-link:hover {
+    text-decoration: underline;
+  }
+  
+  .delete-button {
+    padding: 5px 10px;
+    color: white;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  

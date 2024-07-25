@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Añadir Etapa</h2>
+  <form (ngSubmit)="saveEtapa()">
+    <div class="form-group mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" id="nombre" [(ngModel)]="etapa.nombre" name="nombre" required class="form-control">
+    </div>
+    <div class="form-group mb-3">
+      <label for="descripcion" class="form-label">Descripción</label>
+      <textarea id="descripcion" [(ngModel)]="etapa.descripcion" name="descripcion" required class="form-control"></textarea>
+    </div>
+    <div class="form-group mb-3">
+      <label for="tipo_registro_id" class="form-label">Tipo de Registro</label>
+      <select id="tipo_registro_id" [(ngModel)]="etapa.tipo_registro_id" name="tipo_registro_id" (change)="onTipoRegistroChange()" required class="form-select">
+        <option value="1">Gestación</option>
+        <option value="2">Crecimiento</option>
+      </select>
+    </div>
+    <div *ngIf="esGestacion" class="form-group mb-3">
+      <label for="semanas_embarazo_minima" class="form-label">Semanas de Embarazo Mínima</label>
+      <input type="number" id="semanas_embarazo_minima" [(ngModel)]="etapa.semanas_embarazo_minima" name="semanas_embarazo_minima" class="form-control">
+    </div>
+    <div *ngIf="esGestacion" class="form-group mb-3">
+      <label for="semanas_embarazo_maxima" class="form-label">Semanas de Embarazo Máxima</label>
+      <input type="number" id="semanas_embarazo_maxima" [(ngModel)]="etapa.semanas_embarazo_maxima" name="semanas_embarazo_maxima" class="form-control">
+    </div>
+    <div *ngIf="esCrecimiento" class="form-group mb-3">
+      <label for="edad_minima" class="form-label">Edad Mínima</label>
+      <input type="number" id="edad_minima" [(ngModel)]="etapa.edad_minima" name="edad_minima" class="form-control">
+    </div>
+    <div *ngIf="esCrecimiento" class="form-group mb-3">
+      <label for="edad_maxima" class="form-label">Edad Máxima</label>
+      <input type="number" id="edad_maxima" [(ngModel)]="etapa.edad_maxima" name="edad_maxima" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+</div>

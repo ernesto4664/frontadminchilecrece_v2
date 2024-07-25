@@ -1,47 +1,48 @@
 <div *ngIf="errorMessage" class="alert alert-danger">
-    {{ errorMessage }}
-  </div>
-  
-  <div *ngIf="!errorMessage">
-    <h1 class="text-center">Usuarios Registrados y sus Grupos Familiares</h1>
-    <table class="table table-hover table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th>Nombre</th>
-          <th>Email</th>
-          <th>Edad</th>
-          <th>Región</th>
-          <th>Comuna</th>
-          <th>Familiares</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let usuario of usuarios">
-          <td>{{ usuario.nombres }} {{ usuario.apellidos }}</td>
-          <td>{{ usuario.email }}</td>
-          <td>{{ calcularEdad(usuario.fecha_nacimiento) || 'N/A' }} años</td>
-          <td>{{ usuario.region?.nombre || 'No aplica' }}</td>
-          <td>{{ usuario.comuna?.nombre || 'No aplica' }}</td>
-          <td>
-            <ng-container *ngIf="usuario.familiares?.length; else noFamily">
-              <ul class="list-unstyled">
-                <li *ngFor="let familiar of usuario.familiares">
-                  <strong>{{ familiar.nombres }} {{ familiar.apellidos }}</strong> - {{ familiar.parentesco }}
-                  <br>
-                  ({{ calcularEdad(familiar.fecha_nacimiento) || 'N/A' }} años, Sexo: {{ familiar.sexo }},
-                  Fecha de Nacimiento: {{ familiar.fecha_nacimiento || 'N/A' }})
-                  <ng-container *ngIf="familiar.semanasEmbarazo">
-                    , Semanas de Embarazo: {{ familiar.semanasEmbarazo.semana }}
-                  </ng-container>
-                </li>
-              </ul>
-            </ng-container>
-            <ng-template #noFamily>
-              <p>No hay familiares registrados.</p>
-            </ng-template>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+  {{ errorMessage }}
+</div>
+
+<div *ngIf="!errorMessage">
+  <h1 class="text-center">Usuarios Registrados y sus Grupos Familiares</h1>
+  <table class="table table-hover table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Edad</th>
+        <th>Región</th>
+        <th>Comuna</th>
+        <th>Familiares</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usuario of usuarios">
+        <td>{{ usuario.nombres }} {{ usuario.apellidos }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>{{ calcularEdad(usuario.fecha_nacimiento) || 'N/A' }} años</td>
+        <td>{{ usuario.region?.nombre || 'No aplica' }}</td>
+        <td>{{ usuario.comuna?.nombre || 'No aplica' }}</td>
+        <td>
+          <ng-container *ngIf="usuario.familiares?.length; else noFamily">
+            <ul class="list-unstyled">
+              <li *ngFor="let familiar of usuario.familiares">
+                <strong>{{ familiar.nombres }} {{ familiar.apellidos }}</strong> - {{ familiar.parentesco }}
+                <br>
+                ({{ calcularEdad(familiar.fecha_nacimiento) || 'N/A' }} años, Sexo: {{ familiar.sexo }},
+                Fecha de Nacimiento: {{ familiar.fecha_nacimiento || 'N/A' }})
+                <ng-container *ngIf="familiar.semanas_embarazo_id">
+                  , Semanas de Embarazo: {{ familiar.semanas_embarazo_id }}
+                </ng-container>
+                <br>
+                <strong>Etapa:</strong> {{ familiar.etapa || 'No definida' }}
+              </li>
+            </ul>
+          </ng-container>
+          <ng-template #noFamily>
+            <p>No hay familiares registrados.</p>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

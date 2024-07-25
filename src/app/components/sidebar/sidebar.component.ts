@@ -13,6 +13,8 @@ export class SidebarComponent {
   menuState: { [key: string]: boolean } = {
     noticias: false,
     tags: false,
+    etapas: false,
+    usuariosapp: false,
   };
 
   toggleMenu(menu: string): void {

@@ -1,0 +1,15 @@
+<div class="container">
+    <h2>Detalle de Etapa</h2>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ etapa.nombre }}</h5>
+        <p class="card-text"><strong>Tipo de Registro:</strong> {{ etapa.tipo_registro_id == 1 || etapa.tipo_registro_id == 3 ? 'Gestación' : 'Crecimiento' }}</p>
+        <p class="card-text" *ngIf="etapa.tipo_registro_id == 2"><strong>Edad Mínima:</strong> {{ etapa.edad_minima }}</p>
+        <p class="card-text" *ngIf="etapa.tipo_registro_id == 2"><strong>Edad Máxima:</strong> {{ etapa.edad_maxima }}</p>
+        <p class="card-text" *ngIf="etapa.tipo_registro_id == 1 || etapa.tipo_registro_id == 3"><strong>Semanas de Embarazo Mínima:</strong> {{ etapa.semanas_embarazo_minima }}</p>
+        <p class="card-text" *ngIf="etapa.tipo_registro_id == 1 || etapa.tipo_registro_id == 3"><strong>Semanas de Embarazo Máxima:</strong> {{ etapa.semanas_embarazo_maxima }}</p>
+        <button (click)="goBack()" class="btn btn-primary">Volver</button>
+      </div>
+    </div>
+  </div>
+  

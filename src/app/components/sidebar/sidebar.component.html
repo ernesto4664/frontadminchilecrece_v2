@@ -1,23 +1,30 @@
 <div class="sidebar">
   <nav>
     <ul>
-      <li (click)="toggleMenu('noticias')">
-        Noticias
-        <ul *ngIf="menuState['noticias']">
+      <li (click)="toggleMenu('noticias')" [class.open]="menuState['noticias']">
+        <i class="fas fa-newspaper"></i> Noticias
+        <ul style="padding: 20px 15px;" *ngIf="menuState['noticias']">
           <li><a routerLink="/admin/noticias/add">Agregar nueva noticia</a></li>
           <li><a routerLink="/admin/noticias">Ver todas las noticias</a></li>
         </ul>
       </li>
-      <li (click)="toggleMenu('tags')">
-        Tags
-        <ul *ngIf="menuState['tags']">
+      <li (click)="toggleMenu('tags')" [class.open]="menuState['tags']">
+        <i class="fas fa-tags"></i> Tags
+        <ul style="padding: 20px 15px;" *ngIf="menuState['tags']">
           <li><a routerLink="/admin/tags/add">Agregar nuevo tag</a></li>
           <li><a routerLink="/admin/tags">Ver todos los tags</a></li>
         </ul>
       </li>
-      <li (click)="toggleMenu('usuariosapp')">
-        Usuarios registrados en la App
-        <ul *ngIf="menuState['usuariosapp']">
+      <li (click)="toggleMenu('etapas')" [class.open]="menuState['etapas']">
+        <i class="fas fa-list"></i> Gestión de etapas
+        <ul style="padding: 20px 15px;" *ngIf="menuState['etapas']">
+          <li><a routerLink="/admin/gestion-etapas/add">Agregar nueva etapa</a></li>
+          <li><a routerLink="/admin/gestion-etapas">Ver todas las etapas</a></li>
+        </ul>
+      </li>
+      <li (click)="toggleMenu('usuariosapp')" [class.open]="menuState['usuariosapp']">
+        <i class="fas fa-users"></i> Usuarios registrados en la App
+        <ul  style="padding: 20px 15px;" *ngIf="menuState['usuariosapp']">
           <li><a routerLink="/usuariosapp">Ver a todos los usuarios registrados en la app</a></li>
         </ul>
       </li>
