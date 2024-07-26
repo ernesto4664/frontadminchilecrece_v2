@@ -1,59 +1,63 @@
-<div class="noticia-form-container">
-    <h1>Editar Noticia</h1>
-    <form *ngIf="noticia" (ngSubmit)="saveNoticia()">
-      <div class="form-group">
-        <label for="titulo">Título:</label>
-        <input type="text" id="titulo" [(ngModel)]="noticia.titulo" name="titulo" required>
-      </div>
-      <div class="form-group">
-        <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" [(ngModel)]="noticia.descripcion" name="descripcion" rows="5" required></textarea>
-      </div>
-      <div class="form-group">
-        <label for="imagen">Imagen:</label>
-        <input type="file" id="imagen" (change)="onFileSelected($event)">
-        <div *ngIf="noticia?.imagen">
-          <img [src]="getFullImageUrl(noticia.imagen)" alt="{{ noticia.titulo }}" class="noticia-imagen">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="fecha_hora">Fecha y Hora:</label>
-        <input type="datetime-local" id="fecha_hora" [(ngModel)]="noticia.fecha_hora" name="fecha_hora">
-      </div>
-      <div class="form-group">
-        <label for="status">Status:</label>
-        <select id="status" [(ngModel)]="noticia.status" name="status">
-          <option value="">Seleccione uno</option>
-          <option value="Publicada">Publicada</option>
-          <option value="Desactivada o Archivada">Desactivada o Archivada</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="privilegio">Prioridad:</label>
-        <select id="privilegio" [(ngModel)]="noticia.privilegio" name="privilegio" required>
-          <option selected disabled value="">Seleccione Uno</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="tags_idtags">Tags:</label>
-        <div *ngFor="let tagId of noticia.tags_idtags">
-          {{ getTagNameById(tagId) }} <button type="button" (click)="deleteTag(tagId)">Eliminar</button>
-        </div>
-        <select (change)="addTag($event)">
-          <option value="">Seleccione uno</option>
-          <option *ngFor="let tag of tags" [value]="tag.idtags">{{ tag.nombre }}</option>
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary">Actualizar</button>
-    </form>
-    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+<div class="edit-noticia-container" *ngIf="noticia; else loading">
+  <h1>Editar Noticia</h1>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
   
-    <!-- Sección para mostrar el JSON completo de la noticia -->
-    <pre>{{ noticia | json }}</pre>
+  <!-- Vista previa de la noticia -->
+  <div class="noticia-preview">
+    <div class="preview-text">
+      <h2>Vista Previa</h2>
+      <p><strong>Título:</strong> {{ noticia.titulo }}</p>
+      <p><strong>Descripción:</strong> {{ noticia.descripcion }}</p>
+      <p><strong>Fecha y Hora:</strong> {{ noticia.fecha_hora }}</p>
+      <p><strong>Estado:</strong> {{ noticia.status }}</p>
+      <p><strong>Privilegio:</strong> {{ noticia.privilegio }}</p>
+      <p><strong>Tags:</strong> {{ noticia.tags_idtags }}</p>
+    </div>
+    <div class="preview-image">
+      <p><strong>Imagen:</strong></p>
+      <img [src]="getFullImageUrl(noticia.imagen)" alt="{{ noticia.titulo }}" class="noticia-imagen">
+    </div>
   </div>
-  
+
+  <!-- Formulario de edición -->
+  <form (ngSubmit)="updateNoticia()" class="edit-form">
+    <div class="form-group">
+      <label for="titulo">Título:</label>
+      <input id="titulo" name="titulo" [(ngModel)]="titulo" placeholder="Nuevo Título">
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción:</label>
+      <textarea id="descripcion" name="descripcion" [(ngModel)]="descripcion" placeholder="Nueva Descripción"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="fecha_hora">Fecha y Hora:</label>
+      <input id="fecha_hora" name="fecha_hora" type="datetime-local" [(ngModel)]="fecha_hora" placeholder="Nueva Fecha y Hora">
+    </div>
+    <div class="form-group">
+      <label for="status">Estado:</label>
+      <select id="status" name="status" [(ngModel)]="status">
+        <option value="Publicado">Publicado</option>
+        <option value="Borrador">Borrador</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="privilegio">Privilegio:</label>
+      <input id="privilegio" name="privilegio" type="number" [(ngModel)]="privilegio" placeholder="Nuevo Privilegio">
+    </div>
+    <div class="form-group">
+      <label for="tags">Tags:</label>
+      <select id="tags" name="tags" [(ngModel)]="tags_idtags">
+        <option *ngFor="let tag of tags" [value]="tag.idtags">{{ tag.nombre }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="imagen">Imagen:</label>
+      <input id="imagen" name="imagen" type="file" (change)="onFileSelected($event)">
+    </div>
+    <button type="submit" class="btn btn-primary">Actualizar Noticia</button>
+    <button type="button" class="btn btn-secondary" (click)="volver()">Volver</button>
+  </form>
+</div>
+<ng-template #loading>
+  <p>Cargando...</p>
+</ng-template>

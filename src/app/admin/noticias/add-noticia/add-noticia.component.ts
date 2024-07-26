@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NoticiaService } from '../../../services/noticia.service';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
 
 @Component({
   selector: 'app-add-noticia',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './add-noticia.component.html',
   styleUrls: ['./add-noticia.component.scss']
 })
@@ -18,15 +20,15 @@ export class AddNoticiaComponent implements OnInit {
     imagen: null,
     fecha_hora: '',
     status: '',
-    privilegio: '',
-    tags_idtags: [],
-    usuariop_id: '1'
+    privilegio: 1,  // Default value
+    tags_idtags: '',
+    usuariop_id: 1  // Default value for testing purposes
   };
   errorMessage: string = '';
   tags: any[] = [];
 
   constructor(
-    public noticiaService: NoticiaService,
+    private noticiaService: NoticiaService,
     private router: Router
   ) {}
 
@@ -36,8 +38,9 @@ export class AddNoticiaComponent implements OnInit {
 
   loadTags(): void {
     this.noticiaService.getTags().subscribe({
-      next: (data) => {
-        this.tags = data.data;
+      next: (response) => {
+        console.log('Tags cargados:', response);  // Verifying the tags loaded
+        this.tags = Array.isArray(response) ? response : [];
       },
       error: (error) => {
         this.errorMessage = 'Error al cargar los tags. Inténtalo de nuevo más tarde.';
@@ -54,39 +57,39 @@ export class AddNoticiaComponent implements OnInit {
     }
   }
 
-  addTag(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    const tagId = parseInt(selectElement.value, 10);
-    const tag = this.tags.find(t => t.idtags === tagId);
-    if (tag && !this.noticia.tags_idtags.some((t: any) => t === tagId)) {
-      this.noticia.tags_idtags.push(tagId);
-    }
-    selectElement.value = ''; // Clear the selection
+  formatDateForBackend(dateString: string): string {
+    const date = new Date(dateString);
+    return format(date, 'yyyy-MM-dd HH:mm:ss');
   }
 
   saveNoticia(): void {
-    this.noticiaService.createNoticia(this.noticia).subscribe({
+    const formData = new FormData();
+    formData.append('titulo', this.noticia.titulo);
+    formData.append('descripcion', this.noticia.descripcion);
+    formData.append('fecha_hora', this.formatDateForBackend(this.noticia.fecha_hora));
+    formData.append('status', this.noticia.status);
+    formData.append('privilegio', this.noticia.privilegio.toString());
+    formData.append('tags_idtags', this.noticia.tags_idtags.toString());
+    formData.append('usuariop_id', this.noticia.usuariop_id.toString());
+
+    if (this.noticia.imagen) {
+      formData.append('imagen', this.noticia.imagen);
+    }
+
+    this.noticiaService.createNoticia(formData).subscribe({
       next: () => {
         alert('Noticia creada exitosamente.');
         this.router.navigate(['/admin/noticias']);
       },
       error: (error) => {
-        this.errorMessage = 'Error al crear la noticia. Inténtalo de nuevo más tarde.';
+        if (error.status === 422) {
+          this.errorMessage = 'Error de validación. Por favor, revisa los datos ingresados.';
+          console.error('Validation errors:', error.error.errors);
+        } else {
+          this.errorMessage = 'Error al crear la noticia. Inténtalo de nuevo más tarde.';
+        }
         console.error(error);
       }
     });
-  }
-
-  deleteTag(tagId: number): void {
-    this.noticia.tags_idtags = this.noticia.tags_idtags.filter((tag: any) => tag !== tagId);
-  }
-
-  getFullImageUrl(imagePath: string | undefined): string {
-    return imagePath ? `http://127.0.0.1:8000${imagePath}` : 'assets/default-image.png';
-  }
-
-  getTagNameById(tagId: number): string {
-    const tag = this.tags.find(t => t.idtags === tagId);
-    return tag ? tag.nombre : '';
   }
 }

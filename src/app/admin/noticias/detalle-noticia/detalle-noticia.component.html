@@ -2,7 +2,7 @@
   <h1>{{ noticia?.titulo }}</h1>
   <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
   <img [src]="getFullImageUrl(noticia?.imagen)" alt="{{ noticia?.titulo }}" class="noticia-imagen">
-  <p>{{ noticia?.descripcion }}</p>
+  <p style="text-align: justify;">{{ noticia?.descripcion }}</p>
   <!-- Aquí puedes agregar más detalles de la noticia -->
   <button class="btn btn-primary" (click)="volver()">Volver</button>
 </div>

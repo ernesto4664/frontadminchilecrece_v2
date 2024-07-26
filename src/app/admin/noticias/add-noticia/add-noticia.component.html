@@ -1,52 +1,42 @@
-<div class="noticia-form-container">
-  <h1>Crear Noticia</h1>
-  <form (ngSubmit)="saveNoticia()">
+<div class="add-noticia-container">
+  <h1>Agregar Noticia</h1>
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  <form (ngSubmit)="saveNoticia()" #noticiaForm="ngForm" enctype="multipart/form-data" class="edit-form">
     <div class="form-group">
-      <label for="titulo">Título:</label>
-      <input type="text" id="titulo" [(ngModel)]="noticia.titulo" name="titulo" required>
+      <label for="titulo">Título</label>
+      <input type="text" id="titulo" [(ngModel)]="noticia.titulo" name="titulo" required class="form-control">
     </div>
     <div class="form-group">
-      <label for="descripcion">Descripción:</label>
-      <textarea id="descripcion" [(ngModel)]="noticia.descripcion" name="descripcion" rows="5" required></textarea>
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" [(ngModel)]="noticia.descripcion" name="descripcion" required class="form-control"></textarea>
     </div>
     <div class="form-group">
-      <label for="imagen">Imagen:</label>
-      <input type="file" id="imagen" (change)="onFileSelected($event)">
+      <label for="fecha_hora">Fecha y Hora</label>
+      <input type="datetime-local" id="fecha_hora" [(ngModel)]="noticia.fecha_hora" name="fecha_hora" required class="form-control">
     </div>
     <div class="form-group">
-      <label for="fecha_hora">Fecha y Hora:</label>
-      <input type="datetime-local" id="fecha_hora" [(ngModel)]="noticia.fecha_hora" name="fecha_hora">
-    </div>
-    <div class="form-group">
-      <label for="status">Status:</label>
-      <select id="status" [(ngModel)]="noticia.status" name="status">
-        <option value="">Seleccione uno</option>
-        <option value="Publicada">Publicada</option>
-        <option value="Desactivada o Archivada">Desactivada o Archivada</option>
+      <label for="status">Estado</label>
+      <select id="status" [(ngModel)]="noticia.status" name="status" required class="form-control">
+        <option value="Publicado">Publicado</option>
+        <option value="Borrador">Borrador</option>
       </select>
     </div>
     <div class="form-group">
-      <label for="privilegio">Prioridad:</label>
-      <select id="privilegio" [(ngModel)]="noticia.privilegio" name="privilegio" required>
-        <option selected disabled value="">Seleccione Uno</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
+      <label for="privilegio">Privilegio</label>
+      <select id="privilegio" [(ngModel)]="noticia.privilegio" name="privilegio" required class="form-control">
+        <option *ngFor="let valor of [1, 2, 3, 4, 5]" [value]="valor">{{ valor }}</option>
       </select>
     </div>
     <div class="form-group">
-      <label for="tags_idtags">Tags:</label>
-      <div *ngFor="let tagId of noticia.tags_idtags">
-        {{ getTagNameById(tagId) }} <button type="button" (click)="deleteTag(tagId)">Eliminar</button>
-      </div>
-      <select (change)="addTag($event)">
-        <option value="">Seleccione uno</option>
+      <label for="tags_idtags">Tags</label>
+      <select id="tags_idtags" [(ngModel)]="noticia.tags_idtags" name="tags_idtags" class="form-control">
         <option *ngFor="let tag of tags" [value]="tag.idtags">{{ tag.nombre }}</option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary">Guardar</button>
+    <div class="form-group">
+      <label for="imagen">Imagen</label>
+      <input type="file" id="imagen" (change)="onFileSelected($event)" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Noticia</button>
   </form>
-  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 </div>
