@@ -1,52 +1,94 @@
 .noticias-container {
   padding: 20px;
-  background-color: #f8f9fa;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.noticias-container h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.noticia-item {
+  background-color: #fff;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.noticia-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.noticia-imagen {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.noticia-texto {
+  flex: 1;
+}
+
+.noticia-texto h2 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.noticia-texto p {
+  margin: 0 0 20px 0;
+  color: #666;
+}
+
+.noticia-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
   border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
 
-  h1 {
-    margin-bottom: 20px;
-    text-align: center;
-  }
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
 
-  .noticia-item {
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
 
-    .noticia-content {
-      display: flex;
-      align-items: flex-start;
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
 
-      .noticia-imagen {
-        max-width: 150px;
-        height: auto;
-      }
-
-      .noticia-texto {
-        flex: 1;
-        padding: 10px;
-
-        h2 {
-          margin-top: 0;
-          font-size: 1.5rem;
-        }
-
-        p {
-          margin-bottom: 10px;
-          color: #6c757d;
-        }
-
-        .noticia-buttons {
-          button {
-            margin-right: 5px;
-          }
-        }
-      }
-    }
-  }
-
-  .alert {
-    margin-top: 20px;
-    text-align: center;
-  }
+.btn-secondary:hover, .btn-danger:hover, .btn-primary:hover {
+  opacity: 0.8;
 }
