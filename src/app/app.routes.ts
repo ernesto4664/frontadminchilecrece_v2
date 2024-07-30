@@ -13,6 +13,24 @@ import { AddEtapaComponent } from './admin/gestionEtapas/add-etapa/add-etapa.com
 import { EditEtapaComponent } from './admin/gestionEtapas/edit-etapa/edit-etapa.component';
 import { DetalleEtapaComponent } from './admin/gestionEtapas/detalle-etapa/detalle-etapa.component';
 
+// Importar los componentes de gestión de beneficios
+import { GestiondebeneficiosComponent } from './admin/gestiondebeneficios/gestiondebeneficios.component';
+import { AddBeneficioComponent } from './admin/gestiondebeneficios/add-beneficio/add-beneficio.component';
+import { EditBeneficioComponent } from './admin/gestiondebeneficios/edit-beneficio/edit-beneficio.component';
+import { DetalleBeneficioComponent } from './admin/gestiondebeneficios/detalle-beneficio/detalle-beneficio.component';
+
+// Importar los componentes de gestión de ubicaciones
+import { GestiondeubicacionesComponent } from './admin/gestiondeubicaciones/gestiondeubicaciones.component';
+import { AddUbicacionComponent } from './admin/gestiondeubicaciones/add-ubicacion/add-ubicacion.component';
+import { EditUbicacionComponent } from './admin/gestiondeubicaciones/edit-ubicacion/edit-ubicacion.component';
+import { DetalleUbicacionComponent } from './admin/gestiondeubicaciones/detalle-ubicacion/detalle-ubicacion.component';
+
+// Importar los componentes de gestión de base de establecimientos
+import { GestiondebaseestablecimientosComponent } from './admin/gestiondebaseestablecimientos/gestiondebaseestablecimientos.component';
+import { AddBaseEstablecimientoComponent } from './admin/gestiondebaseestablecimientos/add-baseestablecimiento/add-baseestablecimiento.component';
+import { EditBaseEstablecimientoComponent } from './admin/gestiondebaseestablecimientos/edit-baseestablecimiento/edit-baseestablecimiento.component';
+import { DetalleBaseEstablecimientoComponent } from './admin/gestiondebaseestablecimientos/detalle-baseestablecimiento/detalle-baseestablecimiento.component';
+
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
@@ -28,6 +46,25 @@ export const routes: Routes = [
       { path: 'admin/gestion-etapas/edit/:idetapa', component: EditEtapaComponent },
       { path: 'admin/gestion-etapas/:idetapa', component: DetalleEtapaComponent },
       { path: 'usuariosapp', component: UsuariosListComponent },
+
+      // Rutas para gestión de beneficios
+      { path: 'admin/gestiondebeneficios', component: GestiondebeneficiosComponent },
+      { path: 'admin/gestiondebeneficios/add', component: AddBeneficioComponent },
+      { path: 'admin/gestiondebeneficios/edit/:id', component: EditBeneficioComponent },
+      { path: 'admin/gestiondebeneficios/:id', component: DetalleBeneficioComponent },
+
+      // Rutas para gestión de ubicaciones
+      { path: 'admin/gestiondeubicaciones', component: GestiondeubicacionesComponent },
+      { path: 'admin/gestiondeubicaciones/add', component: AddUbicacionComponent },
+      { path: 'admin/gestiondeubicaciones/edit/:id', component: EditUbicacionComponent },
+      { path: 'admin/gestiondeubicaciones/:id', component: DetalleUbicacionComponent },
+
+      // Rutas para gestión de base de establecimientos
+      { path: 'admin/gestiondebaseestablecimientos', component: GestiondebaseestablecimientosComponent },
+      { path: 'admin/gestiondebaseestablecimientos/add', component: AddBaseEstablecimientoComponent },
+      { path: 'admin/gestiondebaseestablecimientos/edit/:id', component: EditBaseEstablecimientoComponent },
+      { path: 'admin/gestiondebaseestablecimientos/:id', component: DetalleBaseEstablecimientoComponent },
+      
     ]
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' }

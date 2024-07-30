@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
+  imports: [CommonModule, RouterModule]
 })
 export class SidebarComponent {
   menuState: { [key: string]: boolean } = {
@@ -15,6 +15,9 @@ export class SidebarComponent {
     tags: false,
     etapas: false,
     usuariosapp: false,
+    beneficios: false,
+    ubicaciones: false,
+    baseestablecimientos: false
   };
 
   toggleMenu(menu: string): void {
