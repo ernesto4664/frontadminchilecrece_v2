@@ -1,23 +1,30 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BeneficioService } from '../../../services/beneficio.service';
+import { RegionService } from '../../../services/region.service';
+import { EtapaService } from '../../../services/etapa.service';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
-  standalone: true,
   selector: 'app-add-beneficio',
   templateUrl: './add-beneficio.component.html',
   styleUrls: ['./add-beneficio.component.scss'],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule]
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule]
 })
-export class AddBeneficioComponent {
+export class AddBeneficioComponent implements OnInit {
   beneficioForm: FormGroup;
+  etapas: any[] = [];
+  regiones: any[] = [];
+  comunas: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private beneficioService: BeneficioService,
+    private regionService: RegionService,
+    private etapaService: EtapaService,
     private router: Router
   ) {
     this.beneficioForm = this.fb.group({
@@ -31,6 +38,35 @@ export class AddBeneficioComponent {
       requisitos: ['', Validators.required],
       vigencia: ['', Validators.required],
       imagen: [null]
+    });
+  }
+
+  ngOnInit(): void {
+    this.regionService.getRegiones().subscribe(data => {
+      this.regiones = data;
+    });
+
+    this.beneficioForm.get('tipo_usuario')?.valueChanges.subscribe(tipoUsuario => {
+      this.cargarEtapas(tipoUsuario);
+    });
+
+    this.beneficioForm.get('region_id')?.valueChanges.subscribe(regionId => {
+      this.cargarComunas(regionId);
+    });
+  }
+
+  cargarEtapas(tipoUsuario: string): void {
+    this.etapaService.getEtapasByTipoUsuario(tipoUsuario).subscribe(etapas => {
+      this.etapas = [
+        { id: 'all', nombre: 'Seleccionar todas las etapas' },
+        ...etapas
+      ];
+    });
+  }
+
+  cargarComunas(regionId: number): void {
+    this.regionService.getComunasByRegion(regionId).subscribe(data => {
+      this.comunas = data;
     });
   }
 

@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class EtapaService {
   private apiUrl = 'http://localhost:8000/api/etapas';
-
+  private baseUrl = 'http://localhost:8000/api/etapas';
+  
   constructor(private http: HttpClient) {}
 
   getEtapas(): Observable<any[]> {
@@ -28,5 +29,9 @@ export class EtapaService {
 
   deleteEtapa(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+
+  getEtapasByTipoUsuario(tipoUsuario: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/tipoUsuario/${tipoUsuario}`);
   }
 }
