@@ -1,56 +1,63 @@
 <div class="form-container">
-    <form [formGroup]="ubicacionForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="beneficio_id">Beneficio ID</label>
-        <input id="beneficio_id" formControlName="beneficio_id" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="region_id">Región</label>
-        <input id="region_id" formControlName="region_id" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="comuna_id">Comuna</label>
-        <input id="comuna_id" formControlName="comuna_id" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="tipo_establecimiento">Tipo de Establecimiento</label>
-        <select id="tipo_establecimiento" formControlName="tipo_establecimiento" class="form-control">
-          <option value="Salud">Salud</option>
-          <option value="Educacion">Educación</option>
-          <option value="OLN">OLN</option>
-          <option value="Municipal">Municipal</option>
-          <option value="Otro">Otro</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="nombre_establecimiento">Nombre del Establecimiento</label>
-        <input id="nombre_establecimiento" formControlName="nombre_establecimiento" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="direccion">Dirección</label>
-        <input id="direccion" formControlName="direccion" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="horarios">Horarios</label>
-        <input id="horarios" formControlName="horarios" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="contacto">Contacto</label>
-        <input id="contacto" formControlName="contacto" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="lat">Latitud</label>
-        <input id="lat" formControlName="lat" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="long">Longitud</label>
-        <input id="long" formControlName="long" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="id_establecimiento">ID del Establecimiento</label>
-        <input id="id_establecimiento" formControlName="id_establecimiento" type="text" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-primary">Guardar</button>
-    </form>
-  </div>
-  
+  <form [formGroup]="ubicacionForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="fk_beneficio">Beneficio</label>
+      <input id="fk_beneficio" formControlName="fk_beneficio" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="region_id">Región</label>
+      <select id="region_id" formControlName="region_id" (change)="onRegionChange($event)" class="form-control">
+        <option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="comuna_id">Comuna</label>
+      <select id="comuna_id" formControlName="comuna_id" class="form-control">
+        <option *ngFor="let comuna of comunas" [value]="comuna.id">{{ comuna.nombre }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="tipo_establecimiento">Tipo de Establecimiento</label>
+      <select id="tipo_establecimiento" formControlName="tipo_establecimiento" class="form-control">
+        <option value="Salud">Salud</option>
+        <option value="Educacion">Educación</option>
+        <option value="OLN">OLN</option>
+        <option value="Municipal">Municipal</option>
+        <option value="Otro">Otro</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="nombre_establecimiento">Nombre del Establecimiento</label>
+      <input id="nombre_establecimiento" formControlName="nombre_establecimiento" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="direccion">Dirección</label>
+      <input id="direccion" formControlName="direccion" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="horarios">Horarios</label>
+      <input id="horarios" formControlName="horarios" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="contacto">Contacto</label>
+      <input id="contacto" formControlName="contacto" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="lat">Latitud</label>
+      <input id="lat" formControlName="lat" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="long">Longitud</label>
+      <input id="long" formControlName="long" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="codigo_madre_nuevo">Código Madre Nuevo</label>
+      <select id="codigo_madre_nuevo" formControlName="codigo_madre_nuevo" class="form-control">
+        <option *ngFor="let establecimiento of baseEstablecimientos" [value]="establecimiento.codigo_madre_nuevo">{{ establecimiento.codigo_madre_nuevo }}</option>
+      </select>
+    </div>
+    <!-- Campo oculto para id_establecimiento -->
+    <input type="hidden" formControlName="id_establecimiento">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+</div>

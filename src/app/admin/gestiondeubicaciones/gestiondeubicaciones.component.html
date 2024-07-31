@@ -1,1 +1,42 @@
-<p>gestiondeubicaciones works!</p>
+<div class="container">
+    <h2>Lista de Ubicaciones</h2>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Beneficio</th>
+            <th>Región</th>
+            <th>Comuna</th>
+            <th>Tipo de Establecimiento</th>
+            <th>Nombre del Establecimiento</th>
+            <th>Dirección</th>
+            <th>Horarios</th>
+            <th>Contacto</th>
+          <!-- <th>Latitud</th>
+            <th>Longitud</th>--> 
+            <th>Código Madre Nuevo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ubicacion of ubicaciones">
+            <td>{{ ubicacion.fk_beneficio }}</td>
+            <td>{{ ubicacion.region.nombre }}</td>
+            <td>{{ ubicacion.comuna.nombre }}</td>
+            <td>{{ ubicacion.tipo_establecimiento }}</td>
+            <td>{{ ubicacion.nombre_establecimiento }}</td>
+            <td>{{ ubicacion.direccion }}</td>
+            <td>{{ ubicacion.horarios }}</td>
+            <td>{{ ubicacion.contacto }}</td>
+          <!--<td>{{ ubicacion.lat }}</td>
+            <td>{{ ubicacion.long }}</td>-->
+            <td>{{ ubicacion.base_establecimiento.codigo_madre_nuevo }}</td>
+            <td>
+              <button class="btn btn-danger" (click)="deleteUbicacion(ubicacion.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

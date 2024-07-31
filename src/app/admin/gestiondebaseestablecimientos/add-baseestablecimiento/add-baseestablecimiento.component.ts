@@ -21,10 +21,10 @@ export class AddBaseEstablecimientoComponent {
     private router: Router
   ) {
     this.baseEstablecimientoForm = this.fb.group({
-      codigoantiguo: ['', Validators.required],
-      codigovigente: ['', Validators.required],
-      codigomadreantiguo: ['', Validators.required],
-      codigomadrenuevo: ['', Validators.required],
+      codigo_antiguo: ['', Validators.required],
+      codigo_vigente: ['', Validators.required],
+      codigo_madre_antiguo: ['', Validators.required],
+      codigo_madre_nuevo: ['', Validators.required],
       codigo_region: ['', Validators.required],
     });
   }
@@ -36,9 +36,11 @@ export class AddBaseEstablecimientoComponent {
           this.router.navigate(['/admin/gestiondebaseestablecimientos']);
         },
         error => {
-          console.error(error);
+          console.error('Error occurred while adding base establecimiento:', error);
         }
       );
+    } else {
+      console.error('Form is not valid');
     }
   }
 }

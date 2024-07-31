@@ -1,26 +1,25 @@
 <div class="form-container">
-    <form [formGroup]="baseEstablecimientoForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="codigoantiguo">Código Antiguo</label>
-        <input id="codigoantiguo" formControlName="codigoantiguo" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="codigovigente">Código Vigente</label>
-        <input id="codigovigente" formControlName="codigovigente" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="codigomadreantiguo">Código Madre Antiguo</label>
-        <input id="codigomadreantiguo" formControlName="codigomadreantiguo" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="codigomadrenuevo">Código Madre Nuevo</label>
-        <input id="codigomadrenuevo" formControlName="codigomadrenuevo" type="text" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="codigo_region">Código Región</label>
-        <input id="codigo_region" formControlName="codigo_region" type="text" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-primary">Guardar</button>
-    </form>
-  </div>
-  
+  <form [formGroup]="baseEstablecimientoForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="codigo_antiguo">Código Antiguo</label>
+      <input id="codigo_antiguo" formControlName="codigo_antiguo" type="text" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="codigo_vigente">Código Vigente</label>
+      <input id="codigo_vigente" formControlName="codigo_vigente" type="text" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="codigo_madre_antiguo">Código Madre Antiguo</label>
+      <input id="codigo_madre_antiguo" formControlName="codigo_madre_antiguo" type="text" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="codigo_madre_nuevo">Código Madre Nuevo</label>
+      <input id="codigo_madre_nuevo" formControlName="codigo_madre_nuevo" type="text" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="codigo_region">Código Región</label>
+      <input id="codigo_region" formControlName="codigo_region" type="text" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+</div>

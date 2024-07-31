@@ -1,55 +1,60 @@
-<div class="sidebar">
-  <nav>
-    <ul>
-      <li (click)="toggleMenu('noticias')" [class.open]="menuState['noticias']">
-        <i class="fas fa-newspaper"></i> Noticias
-        <ul style="padding: 20px 15px;" *ngIf="menuState['noticias']">
-          <li><a routerLink="/admin/noticias/add">Agregar nueva noticia</a></li>
-          <li><a routerLink="/admin/noticias">Ver todas las noticias</a></li>
-        </ul>
-      </li>
-      <li (click)="toggleMenu('tags')" [class.open]="menuState['tags']">
-        <i class="fas fa-tags"></i> Tags
-        <ul style="padding: 20px 15px;" *ngIf="menuState['tags']">
-          <li><a routerLink="/admin/tags/add">Agregar nuevo tag</a></li>
-          <li><a routerLink="/admin/tags">Ver todos los tags</a></li>
-        </ul>
-      </li>
-      <li (click)="toggleMenu('etapas')" [class.open]="menuState['etapas']">
-        <i class="fas fa-list"></i> Gestión de etapas
-        <ul style="padding: 20px 15px;" *ngIf="menuState['etapas']">
-          <li><a routerLink="/admin/gestion-etapas/add">Agregar nueva etapa</a></li>
-          <li><a routerLink="/admin/gestion-etapas">Ver todas las etapas</a></li>
-        </ul>
-      </li>
-      <li (click)="toggleMenu('usuariosapp')" [class.open]="menuState['usuariosapp']">
-        <i class="fas fa-users"></i> Usuarios registrados en la App
-        <ul style="padding: 20px 15px;" *ngIf="menuState['usuariosapp']">
-          <li><a routerLink="/usuariosapp">Ver a todos los usuarios registrados en la app</a></li>
-        </ul>
-      </li>
-      <!-- Nuevos módulos -->
-      <li (click)="toggleMenu('beneficios')" [class.open]="menuState['beneficios']">
-        <i class="fas fa-gift"></i> Gestión de Beneficios
-        <ul style="padding: 20px 15px;" *ngIf="menuState['beneficios']">
-          <li><a routerLink="/admin/gestiondebeneficios/add">Agregar nuevo beneficio</a></li>
-          <li><a routerLink="/admin/gestiondebeneficios">Ver todos los beneficios</a></li>
-        </ul>
-      </li>
-      <li (click)="toggleMenu('ubicaciones')" [class.open]="menuState['ubicaciones']">
-        <i class="fas fa-map-marker-alt"></i> Gestión de Ubicaciones
-        <ul style="padding: 20px 15px;" *ngIf="menuState['ubicaciones']">
-          <li><a routerLink="/admin/gestiondeubicaciones/add">Agregar nueva ubicación</a></li>
-          <li><a routerLink="/admin/gestiondeubicaciones">Ver todas las ubicaciones</a></li>
-        </ul>
-      </li>
-      <li (click)="toggleMenu('baseestablecimientos')" [class.open]="menuState['baseestablecimientos']">
-        <i class="fas fa-hospital"></i> Gestión de Base de Establecimientos
-        <ul style="padding: 20px 15px;" *ngIf="menuState['baseestablecimientos']">
-          <li><a routerLink="/admin/gestiondebaseestablecimientos/add">Agregar nuevo establecimiento</a></li>
-          <li><a routerLink="/admin/gestiondebaseestablecimientos">Ver todos los establecimientos</a></li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
+<div class="main-container">
+  <div class="sidebar">
+    <nav>
+      <ul>
+        <li (click)="toggleMenu('noticias')" [class.open]="menuState['noticias']">
+          <i class="fas fa-newspaper"></i> Noticias
+          <ul style="padding: 20px 15px;" *ngIf="menuState['noticias']">
+            <li><a routerLink="/admin/noticias/add">Agregar nueva noticia</a></li>
+            <li><a routerLink="/admin/noticias">Ver todas las noticias</a></li>
+          </ul>
+        </li>
+        <li (click)="toggleMenu('tags')" [class.open]="menuState['tags']">
+          <i class="fas fa-tags"></i> Tags
+          <ul style="padding: 20px 15px;" *ngIf="menuState['tags']">
+            <li><a routerLink="/admin/tags/add">Agregar nuevo tag</a></li>
+            <li><a routerLink="/admin/tags">Ver todos los tags</a></li>
+          </ul>
+        </li>
+        <li (click)="toggleMenu('etapas')" [class.open]="menuState['etapas']">
+          <i class="fas fa-list"></i> Gestión de etapas
+          <ul style="padding: 20px 15px;" *ngIf="menuState['etapas']">
+            <li><a routerLink="/admin/gestion-etapas/add">Agregar nueva etapa</a></li>
+            <li><a routerLink="/admin/gestion-etapas">Ver todas las etapas</a></li>
+          </ul>
+        </li>
+        <li (click)="toggleMenu('usuariosapp')" [class.open]="menuState['usuariosapp']">
+          <i class="fas fa-users"></i> Usuarios registrados en la App
+          <ul style="padding: 20px 15px;" *ngIf="menuState['usuariosapp']">
+            <li><a routerLink="/usuariosapp">Ver a todos los usuarios registrados en la app</a></li>
+          </ul>
+        </li>
+        <!-- Nuevos módulos -->
+        <li (click)="toggleMenu('beneficios')" [class.open]="menuState['beneficios']">
+          <i class="fas fa-gift"></i> Gestión de Beneficios
+          <ul style="padding: 20px 15px;" *ngIf="menuState['beneficios']">
+            <li><a routerLink="/admin/gestiondebeneficios/add">Agregar nuevo beneficio</a></li>
+            <li><a routerLink="/admin/gestiondebeneficios">Ver todos los beneficios</a></li>
+          </ul>
+        </li>
+        <li (click)="toggleMenu('ubicaciones')" [class.open]="menuState['ubicaciones']">
+          <i class="fas fa-map-marker-alt"></i> Gestión de Ubicaciones
+          <ul style="padding: 20px 15px;" *ngIf="menuState['ubicaciones']">
+            <li><a routerLink="/admin/gestiondeubicaciones/add">Agregar nueva ubicación</a></li>
+            <li><a routerLink="/admin/gestiondeubicaciones">Ver todas las ubicaciones</a></li>
+          </ul>
+        </li>
+        <li (click)="toggleMenu('baseestablecimientos')" [class.open]="menuState['baseestablecimientos']">
+          <i class="fas fa-hospital"></i> Gestión de Base de Establecimientos
+          <ul style="padding: 20px 15px;" *ngIf="menuState['baseestablecimientos']">
+            <li><a routerLink="/admin/gestiondebaseestablecimientos/add">Agregar nuevo establecimiento</a></li>
+            <li><a routerLink="/admin/gestiondebaseestablecimientos">Ver todos los establecimientos</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="content">
+    <!-- Aquí va el contenido principal -->
+  </div>
 </div>

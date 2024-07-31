@@ -18,6 +18,10 @@ export class BeneficioService {
     return this.http.get(`${this.apiUrl}/beneficios/${id}`);
   }
 
+  getBeneficiosByEtapa(etapaId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/beneficios/etapa/${etapaId}`);
+  }
+
   addBeneficio(beneficio: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/beneficios`, beneficio);
   }
