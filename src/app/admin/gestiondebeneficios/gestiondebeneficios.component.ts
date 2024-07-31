@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BeneficioService } from '../../services/beneficio.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -13,7 +14,9 @@ import { FormsModule } from '@angular/forms';
 export class GestiondebeneficiosComponent implements OnInit {
   beneficios: any[] = [];
 
-  constructor(private beneficioService: BeneficioService) { }
+  constructor(private beneficioService: BeneficioService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getBeneficios();
@@ -56,6 +59,10 @@ export class GestiondebeneficiosComponent implements OnInit {
     const url = imagePath ? `http://127.0.0.1:8000/storage/${imagePath}` : 'assets/default-image.png';
     console.log('Image URL:', url); // Debug
     return url;
+  }
+
+  verDetalle(id: number): void {
+    this.router.navigate([`/admin/gestiondebeneficios/${id}`]);
   }
 
 }
