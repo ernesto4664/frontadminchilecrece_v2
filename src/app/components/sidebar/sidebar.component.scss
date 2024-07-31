@@ -1,12 +1,21 @@
+:host {
+  background-color: #00BAC8 !important;
+}
+
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
+app-sidebar {
+  background-color: #00BAC8 !important;
+}
+
 .main-container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  
 }
 
 .sidebar {
@@ -117,7 +126,3 @@ html, body {
   }
 }
 
-.content {
-  flex-grow: 1;
-  padding: 20px;
-}

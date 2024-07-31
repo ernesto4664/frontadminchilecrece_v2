@@ -1,16 +1,21 @@
 <div class="beneficios-container">
     <h1>Beneficios</h1>
-  
     <div *ngIf="beneficios.length > 0; else noBeneficios">
-      <div *ngFor="let beneficio of beneficios" class="beneficio">
-        <h2>{{ beneficio.nombre }}</h2>
-        <p><strong>Descripción:</strong> {{ beneficio.descripcion }}</p>
-        <p><strong>Tipo de Usuario:</strong> {{ beneficio.tipo_usuario }}</p>
-        <p><strong>Tipo de Beneficio:</strong> {{ beneficio.tipo_beneficio }}</p>
-        <p><strong>Requisitos:</strong> {{ beneficio.requisitos }}</p>
-        <p><strong>Vigencia:</strong> {{ beneficio.vigencia }}</p>
-        <p><strong>Imagen:</strong> <img [src]="beneficio.imagen" alt="{{ beneficio.nombre }}"></p>
-        <button (click)="deleteBeneficio(beneficio.id)">Eliminar</button>
+      <div *ngFor="let beneficio of beneficios" class="beneficio-card">
+        <div class="beneficio-content">
+          <div class="beneficio-imagen">
+            <img [src]="getFullImageUrl(beneficio.imagen)" alt="{{ beneficio.nombre }}">
+          </div>
+          <div class="beneficio-texto">
+            <h2>{{ beneficio.nombre }}</h2>
+            <p><strong>Descripción:</strong> {{ beneficio.descripcion }}</p>
+            <p><strong>Tipo de Usuario:</strong> {{ beneficio.tipo_usuario }}</p>
+            <p><strong>Tipo de Beneficio:</strong> {{ beneficio.tipo_beneficio }}</p>
+            <p><strong>Requisitos:</strong> {{ beneficio.requisitos }}</p>
+            <p><strong>Vigencia:</strong> {{ beneficio.vigencia }}</p>
+            <button (click)="deleteBeneficio(beneficio.id)" class="btn-eliminar">Eliminar</button>
+          </div>
+        </div>
         <hr>
       </div>
     </div>

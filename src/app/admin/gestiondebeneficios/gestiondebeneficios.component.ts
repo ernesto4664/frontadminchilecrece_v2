@@ -47,4 +47,15 @@ export class GestiondebeneficiosComponent implements OnInit {
       this.beneficios = this.beneficios.filter(beneficio => beneficio.id !== id);
     });
   }
+
+  getFullImageUrl(imagePath: string | File | null | undefined): string {
+    if (imagePath instanceof File) {
+      return URL.createObjectURL(imagePath);
+    }
+    // Ajustar la URL para que apunte a la carpeta 'storage'
+    const url = imagePath ? `http://127.0.0.1:8000/storage/${imagePath}` : 'assets/default-image.png';
+    console.log('Image URL:', url); // Debug
+    return url;
+  }
+
 }
