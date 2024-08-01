@@ -1,5 +1,8 @@
 import { Routes } from '@angular/router';
+
 import { LoginComponent } from './auth/login/login.component';
+import { LoginCallbackComponent } from './auth/login-callback/login-callback.component';
+
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { NoticiasComponent } from './admin/noticias/noticias.component';
 import { TagsComponent } from './admin/tags/tags.component';
@@ -33,6 +36,8 @@ import { DetalleBaseEstablecimientoComponent } from './admin/gestiondebaseestabl
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'login/callback', component: LoginCallbackComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: '', component: LayoutComponent, children: [
       { path: 'admin', component: DashboardComponent },
@@ -64,7 +69,6 @@ export const routes: Routes = [
       { path: 'admin/gestiondebaseestablecimientos/add', component: AddBaseEstablecimientoComponent },
       { path: 'admin/gestiondebaseestablecimientos/edit/:id', component: EditBaseEstablecimientoComponent },
       { path: 'admin/gestiondebaseestablecimientos/:id', component: DetalleBaseEstablecimientoComponent },
-      
     ]
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' }

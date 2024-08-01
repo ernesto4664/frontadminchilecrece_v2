@@ -4,8 +4,8 @@ import { provideRouter } from '@angular/router';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { provideHttpClient } from '@angular/common/http';
+import { environment } from './environments/environment';
 
-import { environment } from './../src/environments/environment';
 if (environment.production) {
   enableProdMode();
 }
