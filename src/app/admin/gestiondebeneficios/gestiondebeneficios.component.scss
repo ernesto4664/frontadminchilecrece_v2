@@ -57,7 +57,11 @@
     margin: 10px 0;
   }
   
-  .btn-eliminar {
+  .button-group {
+    margin-top: 10px;
+  }
+  
+  .button-group button {
     background-color: #ff4d4d;
     border: none;
     color: white;
@@ -66,14 +70,18 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 10px 0;
+    margin-right: 10px; /* Espacio entre los botones */
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s ease;
   }
   
-  .btn-eliminar:hover {
-    background-color: #ff0000;
+  .button-group .btn-ver-detalle {
+    background-color: #4caf50; /* Color diferente para el botón Ver Detalle */
+  }
+  
+  .button-group button:hover {
+    opacity: 0.8;
   }
   
   hr {

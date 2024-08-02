@@ -1,16 +1,10 @@
 <div class="login-container">
-  <div class="login-box">
-    <h2>Login</h2>
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="email" id="email" [(ngModel)]="email" name="email" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" id="password" [(ngModel)]="password" name="password" required>
-      </div>
-      <button type="submit">Login</button>
-    </form>
+  <div class="mi-imagen">
+    <img src="assets/images/logo.png" alt="Logo" class="navbar-logo">
+  </div>
+  <div class="login-box text-center">
+    <h2>Bienvenido a Chile Crece Mas</h2>
+    <p class="lead">La plataforma para ayudar a las familias a crecer juntas.</p>
+    <button class="btn" (click)="login()">Iniciar Sesión</button>
   </div>
 </div>

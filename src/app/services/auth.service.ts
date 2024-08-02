@@ -1,17 +1,15 @@
-// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://127.0.0.1:8000/api'; // Cambia esto a la URL de tu API
+  private ssoLoginUrl = 'http://127.0.0.1:8000/login/sso'; // URL de la ruta de inicio de sesión SSO
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { email, password });
+  redirectToSSOLogin(): void {
+    window.location.href = this.ssoLoginUrl;
   }
 }

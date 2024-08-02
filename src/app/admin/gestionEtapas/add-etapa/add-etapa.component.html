@@ -5,9 +5,9 @@
       <label for="nombre" class="form-label">Nombre</label>
       <input type="text" id="nombre" [(ngModel)]="etapa.nombre" name="nombre" required class="form-control">
     </div>
-    <div class="form-group mb-3">
+    <div class="form-group">
       <label for="descripcion" class="form-label">Descripción</label>
-      <textarea id="descripcion" [(ngModel)]="etapa.descripcion" name="descripcion" required class="form-control"></textarea>
+      <editor [(ngModel)]="etapa.descripcion" name="descripcion" [init]="editorConfig"></editor>
     </div>
     <div class="form-group mb-3">
       <label for="tipo_registro_id" class="form-label">Tipo de Registro</label>

@@ -6,7 +6,7 @@
         </div>
         <div class="form-group">
             <label for="descripcion">Descripción</label>
-            <textarea id="descripcion" formControlName="descripcion" class="form-control"></textarea>
+            <editor formControlName="descripcion" name="descripcion" [init]="editorConfig"></editor>
         </div>
         <div class="form-group">
             <label for="tipo_usuario">Tipo de Usuario</label>
@@ -55,7 +55,7 @@
         </div>
         <div class="form-group">
             <label for="requisitos">Requisitos</label>
-            <textarea id="requisitos" formControlName="requisitos" class="form-control"></textarea>
+            <editor formControlName="requisitos" name="requisitos" [init]="editorConfig"></editor>
         </div>
         <div class="form-group">
             <label for="vigencia">Vigencia</label>

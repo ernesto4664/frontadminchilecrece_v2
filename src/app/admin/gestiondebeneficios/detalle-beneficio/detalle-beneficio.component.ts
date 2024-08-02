@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { BeneficioService } from '../../../services/beneficio.service';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -16,7 +17,8 @@ export class DetalleBeneficioComponent implements OnInit {
 
   constructor(
     private beneficioService: BeneficioService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     this.beneficioId = this.route.snapshot.params['id'];
   }
@@ -25,5 +27,17 @@ export class DetalleBeneficioComponent implements OnInit {
     this.beneficioService.getBeneficio(this.beneficioId).subscribe(data => {
       this.beneficio = data;
     });
+  }
+
+  getFullImageUrl(imagePath: string | File | null | undefined): string {
+    if (imagePath instanceof File) {
+      return URL.createObjectURL(imagePath);
+    }
+    const url = imagePath ? `http://127.0.0.1:8000/storage/${imagePath}` : 'assets/default-image.png';
+    return url;
+  }
+
+  volver(): void {
+    this.router.navigate(['/admin/gestiondebeneficios']);
   }
 }
