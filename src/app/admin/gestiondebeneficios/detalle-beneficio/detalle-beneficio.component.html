@@ -1,9 +1,11 @@
 <div *ngIf="beneficio">
     <h2>{{ beneficio.nombre }}</h2>
-    <p><strong>Descripción:</strong> {{ beneficio.descripcion }}</p>
+    <p><strong>Descripción:</strong></p>
+    <div class="mihtml" [innerHTML]="beneficio.descripcion"></div>
     <p><strong>Tipo de Usuario:</strong> {{ beneficio.tipo_usuario }}</p>
     <p><strong>Tipo de Beneficio:</strong> {{ beneficio.tipo_beneficio }}</p>
-    <p><strong>Requisitos:</strong> {{ beneficio.requisitos }}</p>
+    <p><strong>Requisitos:</strong></p>
+    <div class="mihtml" [innerHTML]="beneficio.requisitos"></div>
     <p><strong>Vigencia:</strong> {{ beneficio.vigencia }}</p>
     <div class="beneficio-imagen">
       <img [src]="getFullImageUrl(beneficio.imagen)" alt="{{ beneficio.nombre }}">
