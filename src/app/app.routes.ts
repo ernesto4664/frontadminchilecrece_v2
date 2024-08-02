@@ -3,6 +3,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { NoticiasComponent } from './admin/noticias/noticias.component';
 import { TagsComponent } from './admin/tags/tags.component';
+import { AddTagComponent } from './admin/tags/add-tag/add-tag.component';
+import { EditTagComponent } from './admin/tags/edit-tag/edit-tag.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { AddNoticiaComponent } from './admin/noticias/add-noticia/add-noticia.component';
 import { DetalleNoticiaComponent } from './admin/noticias/detalle-noticia/detalle-noticia.component';
@@ -41,6 +43,8 @@ export const routes: Routes = [
       { path: 'admin/noticias/edit/:idnoticia', component: EditNoticiaComponent },
       { path: 'admin/noticias/:idnoticia', component: DetalleNoticiaComponent },
       { path: 'admin/tags', component: TagsComponent },
+      { path: 'admin/tags/add', component: AddTagComponent },
+      { path: 'admin/tags/edit/:id', component: EditTagComponent },
       { path: 'admin/gestion-etapas', component: GestionEtapasComponent },
       { path: 'admin/gestion-etapas/add', component: AddEtapaComponent },
       { path: 'admin/gestion-etapas/edit/:idetapa', component: EditEtapaComponent },

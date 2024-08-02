@@ -1,2 +1,32 @@
-<h2>Tags</h2>
-<!-- Add your tags content here -->
+<div class="tags-container">
+  <h1>Gestión de Tags</h1>
+  
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Prioridad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Asegúrate de que tags sea un arreglo -->
+      <tr *ngFor="let tag of tags">
+        <td>{{ tag.idtags }}</td>
+        <td>
+          <span *ngIf="editTagId !== tag.idtags">{{ tag.nombre }}</span>
+        </td>
+        <td>
+          <span *ngIf="editTagId !== tag.idtags">{{ tag.prioridad }}</span>
+        </td>
+        <td>
+          <button (click)="navigateToEdit(tag.idtags)" class="btn btn-primary">Editar</button>
+          <button (click)="deleteTag(tag.idtags)" class="btn btn-danger">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

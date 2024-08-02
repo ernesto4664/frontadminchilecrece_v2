@@ -23,7 +23,7 @@ export interface Tag {
     total: number;
   }
   
-  export interface ApiResponse {
+  export interface ApiResponse<T> {
     message: string;
-    data: TagResponse;
+    data: T;
   }
