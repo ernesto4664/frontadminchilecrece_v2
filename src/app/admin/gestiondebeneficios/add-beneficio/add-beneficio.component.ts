@@ -142,20 +142,22 @@ export class AddBeneficioComponent implements OnInit {
   onSubmit(): void {
     if (this.beneficioForm.valid) {
       console.log('Formulario válido:', this.beneficioForm.value);
-
+  
       const formData = new FormData();
       Object.entries(this.beneficioForm.value).forEach(([key, value]) => {
         if (key === 'imagen' && value instanceof File) {
           formData.append(key, value, value.name);
-        } else if (Array.isArray(value)) {
-          value.forEach((val) => formData.append(`${key}[]`, String(val)));
+        } else if (key === 'etapa_id' || key === 'region_id' || key === 'comuna_id' || key === 'ubicacion_id') {
+          // Asegúrate de que los campos que deben ser arreglos se envíen como tales
+          const arrayValue = Array.isArray(value) ? value : [value];
+          arrayValue.forEach((val) => formData.append(`${key}[]`, String(val)));
         } else {
           formData.append(key, value as string);
         }
       });
-
+  
       console.log('Datos del FormData:', formData);
-
+  
       this.beneficioService.addBeneficio(formData).subscribe(
         (response) => {
           console.log('Beneficio guardado con éxito', response);
