@@ -29,8 +29,8 @@ export class AddUbicacionComponent implements OnInit {
   ) {
     this.ubicacionForm = this.fb.group({
       fk_beneficio: ['', Validators.required],
-      region_id: ['', Validators.required],
-      comuna_id: ['', Validators.required],
+      region_id: [[], Validators.required], // Cambiado a array para selección múltiple
+      comuna_id: [[], Validators.required], // Cambiado a array para selección múltiple
       tipo_establecimiento: ['', Validators.required],
       nombre_establecimiento: ['', Validators.required],
       direccion: ['', Validators.required],
@@ -45,7 +45,10 @@ export class AddUbicacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarRegiones();
-    this.cargarBaseEstablecimientos();
+    this.cargarBaseEstablecimientos(); // Asegúrate de llamar a este método aquí
+    this.ubicacionForm.get('region_id')?.valueChanges.subscribe(() => {
+      this.cargarComunas();
+    });
   }
 
   cargarRegiones(): void {
@@ -54,21 +57,30 @@ export class AddUbicacionComponent implements OnInit {
     });
   }
 
-  cargarComunas(regionId: number): void {
-    this.regionService.getComunasByRegion(regionId).subscribe((data: any) => {
-      this.comunas = data;
-    });
+  cargarComunas(): void {
+    const regionIds = this.ubicacionForm.get('region_id')?.value;
+    if (regionIds && regionIds.length > 0) {
+      this.regionService.getComunasByRegions(regionIds).subscribe((data: any) => {
+        this.comunas = data;
+      }, error => {
+        console.error('Error al cargar comunas:', error);
+      });
+    } else {
+      this.comunas = [];
+    }
   }
 
   cargarBaseEstablecimientos(): void {
     this.baseEstablecimientoService.getBaseEstablecimientos().subscribe((data: any) => {
       this.baseEstablecimientos = data;
+      console.log('Base Establecimientos cargados:', this.baseEstablecimientos);
+    }, error => {
+      console.error('Error al cargar los establecimientos base:', error);
     });
   }
 
   onRegionChange(event: any): void {
-    const regionId = event.target.value;
-    this.cargarComunas(regionId);
+    this.cargarComunas();
   }
 
   onSubmit(): void {

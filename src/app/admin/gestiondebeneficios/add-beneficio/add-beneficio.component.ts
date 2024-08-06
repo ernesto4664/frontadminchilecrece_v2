@@ -17,13 +17,13 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
   styleUrls: ['./add-beneficio.component.scss'],
   providers: [{ provide: TINYMCE_SCRIPT_SRC, useValue: '/assets/tinymce/tinymce.min.js' }]
 })
-
 export class AddBeneficioComponent implements OnInit {
   beneficioForm: FormGroup;
   etapas: any[] = [];
   regiones: any[] = [];
   comunas: any[] = [];
   ubicaciones: any[] = [];
+  filteredUbicaciones: any[] = [];
   public editorConfig: any;
 
   constructor(
@@ -32,7 +32,7 @@ export class AddBeneficioComponent implements OnInit {
     private etapaService: EtapaService,
     private regionService: RegionService,
     private ubicacionService: UbicacionService,
-    private router: Router // Inyecta el Router para redirecciones
+    private router: Router
   ) {
     this.editorConfig = {
       height: 500,
@@ -68,9 +68,9 @@ export class AddBeneficioComponent implements OnInit {
       tipo_usuario: ['', Validators.required],
       etapa_id: [[], Validators.required],
       tipo_beneficio: ['', Validators.required],
-      region_id: ['', Validators.required],
-      comuna_id: ['', Validators.required],
-      ubicacion_id: ['', Validators.required],
+      region_id: [[], Validators.required], // Cambiado a array para selección múltiple
+      comuna_id: [[], Validators.required], // Cambiado a array para selección múltiple
+      ubicacion_id: [[], Validators.required], // Cambiado a array para selección múltiple
       requisitos: ['', Validators.required],
       vigencia: ['', Validators.required],
       imagen: [null], // Cambiado a null para manejar archivos
@@ -80,7 +80,13 @@ export class AddBeneficioComponent implements OnInit {
   ngOnInit(): void {
     this.cargarEtapas();
     this.cargarRegiones();
-    this.cargarUbicaciones();
+    this.beneficioForm.get('region_id')?.valueChanges.subscribe(() => {
+      this.cargarComunas();
+      this.cargarUbicaciones();
+    });
+    this.beneficioForm.get('comuna_id')?.valueChanges.subscribe(() => {
+      this.cargarUbicaciones();
+    });
   }
 
   cargarEtapas(): void {
@@ -99,17 +105,29 @@ export class AddBeneficioComponent implements OnInit {
     });
   }
 
-  cargarUbicaciones(): void {
-    this.ubicacionService.getUbicaciones().subscribe((ubicaciones) => {
-      this.ubicaciones = ubicaciones;
-    });
+  cargarComunas(): void {
+    const regionIds = this.beneficioForm.get('region_id')?.value;
+    if (regionIds && regionIds.length > 0) {
+      this.regionService.getComunasByRegions(regionIds).subscribe((comunas) => {
+        this.comunas = comunas;
+        this.beneficioForm.get('comuna_id')?.reset();
+      });
+    } else {
+      this.comunas = [];
+      this.beneficioForm.get('comuna_id')?.reset();
+    }
   }
 
-  onRegionChange(event: any): void {
-    const regionId = event.target.value;
-    this.regionService.getComunasByRegion(regionId).subscribe((comunas) => {
-      this.comunas = comunas;
-    });
+  cargarUbicaciones(): void {
+    const regionIds = this.beneficioForm.get('region_id')?.value;
+    const comunaIds = this.beneficioForm.get('comuna_id')?.value;
+    if (regionIds && comunaIds && regionIds.length > 0 && comunaIds.length > 0) {
+      this.ubicacionService.getUbicacionesByRegionAndComuna(regionIds, comunaIds).subscribe((ubicaciones) => {
+        this.filteredUbicaciones = ubicaciones;
+      });
+    } else {
+      this.filteredUbicaciones = [];
+    }
   }
 
   onFileChange(event: any): void {
@@ -129,9 +147,8 @@ export class AddBeneficioComponent implements OnInit {
       Object.entries(this.beneficioForm.value).forEach(([key, value]) => {
         if (key === 'imagen' && value instanceof File) {
           formData.append(key, value, value.name);
-        } else if (key === 'etapa_id') {
-          const etapasArray = Array.isArray(value) ? value : [value];
-          etapasArray.forEach((val) => formData.append(`${key}[]`, String(val)));
+        } else if (Array.isArray(value)) {
+          value.forEach((val) => formData.append(`${key}[]`, String(val)));
         } else {
           formData.append(key, value as string);
         }
