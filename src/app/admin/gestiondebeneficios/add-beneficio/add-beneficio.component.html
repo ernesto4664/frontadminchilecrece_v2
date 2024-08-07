@@ -16,11 +16,19 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="etapa_id">Etapa</label>
-        <select id="etapa_id" formControlName="etapa_id" class="form-control">
-          <option value="all">Seleccionar todas</option>
-          <option *ngFor="let etapa of etapas" [value]="etapa.id">{{ etapa.nombre }}</option>
-        </select>
+        <label>Etapa</label>
+        <div>
+          <label>
+            <input type="checkbox" (change)="toggleAllEtapas($event)">
+            Seleccionar todas
+          </label>
+        </div>
+        <div *ngFor="let etapa of etapas">
+          <label>
+            <input type="checkbox" [value]="etapa.id" (change)="onEtapaChange($event)">
+            {{ etapa.nombre }}
+          </label>
+        </div>
       </div>
       <div class="form-group">
         <label for="tipo_beneficio">Tipo de Beneficio</label>

@@ -14,9 +14,7 @@ import { Router } from '@angular/router';
 export class GestiondebeneficiosComponent implements OnInit {
   beneficios: any[] = [];
 
-  constructor(private beneficioService: BeneficioService,
-    private router: Router
-  ) { }
+  constructor(private beneficioService: BeneficioService, private router: Router) { }
 
   ngOnInit(): void {
     this.getBeneficios();
@@ -45,9 +43,19 @@ export class GestiondebeneficiosComponent implements OnInit {
     return uniqueBeneficios;
   }
 
+  confirmDeleteBeneficio(id: number): void {
+    const confirmed = confirm('¿Estás seguro de eliminar este beneficio?');
+    if (confirmed) {
+      this.deleteBeneficio(id);
+    }
+  }
+
   deleteBeneficio(id: number): void {
     this.beneficioService.deleteBeneficio(id).subscribe(() => {
       this.beneficios = this.beneficios.filter(beneficio => beneficio.id !== id);
+    }, error => {
+      console.error('Error al eliminar el beneficio:', error);
+      alert('Hubo un error al eliminar el beneficio. Por favor, inténtelo de nuevo.');
     });
   }
 
@@ -64,5 +72,4 @@ export class GestiondebeneficiosComponent implements OnInit {
   verDetalle(id: number): void {
     this.router.navigate([`/admin/gestiondebeneficios/${id}`]);
   }
-
 }

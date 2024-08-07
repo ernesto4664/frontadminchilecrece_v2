@@ -139,6 +139,27 @@ export class AddBeneficioComponent implements OnInit {
     }
   }
 
+  toggleAllEtapas(event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    if (checked) {
+      this.beneficioForm.get('etapa_id')?.setValue(this.etapas.map(etapa => etapa.id));
+    } else {
+      this.beneficioForm.get('etapa_id')?.setValue([]);
+    }
+  }
+
+  onEtapaChange(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    const selectedEtapaId = target.value;
+    const currentEtapaIds = this.beneficioForm.get('etapa_id')?.value || [];
+
+    if (target.checked) {
+      this.beneficioForm.get('etapa_id')?.setValue([...currentEtapaIds, selectedEtapaId]);
+    } else {
+      this.beneficioForm.get('etapa_id')?.setValue(currentEtapaIds.filter((id: any) => id !== selectedEtapaId));
+    }
+  }
+
   onSubmit(): void {
     if (this.beneficioForm.valid) {
       console.log('Formulario válido:', this.beneficioForm.value);
@@ -148,7 +169,6 @@ export class AddBeneficioComponent implements OnInit {
         if (key === 'imagen' && value instanceof File) {
           formData.append(key, value, value.name);
         } else if (key === 'etapa_id' || key === 'region_id' || key === 'comuna_id' || key === 'ubicacion_id') {
-          // Asegúrate de que los campos que deben ser arreglos se envíen como tales
           const arrayValue = Array.isArray(value) ? value : [value];
           arrayValue.forEach((val) => formData.append(`${key}[]`, String(val)));
         } else {

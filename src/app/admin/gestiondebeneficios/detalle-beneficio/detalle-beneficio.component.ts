@@ -24,8 +24,14 @@ export class DetalleBeneficioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.beneficioService.getBeneficio(this.beneficioId).subscribe(data => {
-      this.beneficio = data;
+    this.beneficioService.getBeneficio(this.beneficioId).subscribe({
+      next: (data) => {
+        this.beneficio = data;
+      },
+      error: (err) => {
+        console.error('Error al cargar el beneficio:', err);
+        alert('Error al cargar el beneficio. Inténtelo nuevamente.');
+      }
     });
   }
 
