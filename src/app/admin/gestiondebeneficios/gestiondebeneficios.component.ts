@@ -22,25 +22,8 @@ export class GestiondebeneficiosComponent implements OnInit {
 
   getBeneficios(): void {
     this.beneficioService.getBeneficios().subscribe(data => {
-      this.beneficios = this.filterBeneficios(data);
+      this.beneficios = data; // Elimina el filtro temporalmente
     });
-  }
-
-  filterBeneficios(beneficios: any[]): any[] {
-    const uniqueBeneficios = [];
-    const seenEtapaIds = new Set();
-
-    for (const beneficio of beneficios) {
-      const etapaIds = beneficio.etapas.map((etapa: any) => etapa.id);
-      const hasDuplicateEtapa = etapaIds.some((etapaId: number) => seenEtapaIds.has(etapaId));
-
-      if (!hasDuplicateEtapa) {
-        uniqueBeneficios.push(beneficio);
-        etapaIds.forEach((etapaId: number) => seenEtapaIds.add(etapaId));
-      }
-    }
-
-    return uniqueBeneficios;
   }
 
   confirmDeleteBeneficio(id: number): void {
@@ -63,9 +46,8 @@ export class GestiondebeneficiosComponent implements OnInit {
     if (imagePath instanceof File) {
       return URL.createObjectURL(imagePath);
     }
-    // Ajustar la URL para que apunte a la carpeta 'storage'
     const url = imagePath ? `http://127.0.0.1:8000/storage/${imagePath}` : 'assets/default-image.png';
-    console.log('Image URL:', url); // Debug
+    console.log('Image URL:', url);
     return url;
   }
 

@@ -1,22 +1,50 @@
 <div *ngIf="beneficio" class="beneficio-detalle-container">
-  <h2>{{ beneficio.nombre }}</h2>
-  <p><strong>Descripción:</strong></p>
-  <div class="mihtml" [innerHTML]="beneficio.descripcion"></div>
-  <p><strong>Tipo de Usuario:</strong> {{ beneficio.tipo_usuario }}</p>
-  <p><strong>Tipo de Beneficio:</strong> {{ beneficio.tipo_beneficio }}</p>
-  <p><strong>Requisitos:</strong></p>
-  <div class="mihtml" [innerHTML]="beneficio.requisitos"></div>
-  <p><strong>Vigencia:</strong> {{ beneficio.vigencia }}</p>
-  <div *ngIf="beneficio.etapas && beneficio.etapas.length > 0">
-    <p><strong>Etapas:</strong></p>
-    <ul>
-      <li *ngFor="let etapa of beneficio.etapas">{{ etapa.nombre }}</li>
-    </ul>
+  <div class="beneficio-header">
+    <h2>{{ beneficio.nombre }}</h2>
+    <div class="beneficio-imagen">
+      <img [src]="getFullImageUrl(beneficio.imagen)" alt="{{ beneficio.nombre }}">
+    </div>
   </div>
-  <div class="beneficio-imagen">
-    <img [src]="getFullImageUrl(beneficio.imagen)" alt="{{ beneficio.nombre }}">
+  <div class="beneficio-info">
+    <p><strong>Descripción:</strong></p>
+    <div class="mihtml" [innerHTML]="beneficio.descripcion"></div>
+    <p><strong>Tipo de Usuario:</strong> {{ beneficio.tipo_usuario }}</p>
+    <p><strong>Tipo de Beneficio:</strong> {{ beneficio.tipo_beneficio }}</p>
+    <p><strong>Requisitos:</strong></p>
+    <div class="mihtml" [innerHTML]="beneficio.requisitos"></div>
+    <p><strong>Vigencia:</strong> {{ beneficio.vigencia }}</p>
+    
+    <div *ngIf="beneficio.etapas && beneficio.etapas.length > 0">
+      <p><strong>Etapas:</strong></p>
+      <ul>
+        <li *ngFor="let etapa of beneficio.etapas">{{ etapa.nombre }}</li>
+      </ul>
+    </div>
+    
+    <div *ngIf="beneficio.regiones && beneficio.regiones.length > 0">
+      <p><strong>Regiones:</strong></p>
+      <ul>
+        <li *ngFor="let region of beneficio.regiones">{{ region.nombre }}</li>
+      </ul>
+    </div>
+    
+    <div *ngIf="beneficio.comunas && beneficio.comunas.length > 0">
+      <p><strong>Comunas:</strong></p>
+      <ul>
+        <li *ngFor="let comuna of beneficio.comunas">{{ comuna.nombre }}</li>
+      </ul>
+    </div>
+    
+    <div *ngIf="beneficio.ubicaciones && beneficio.ubicaciones.length > 0">
+      <p><strong>Ubicaciones:</strong></p>
+      <ul>
+        <li *ngFor="let ubicacion of beneficio.ubicaciones">{{ ubicacion.nombre_establecimiento }}</li>
+      </ul>
+    </div>
   </div>
-  <button class="btn btn-primary" (click)="volver()">Volver</button>
+  <div class="button-container">
+    <button class="btn btn-primary" (click)="volver()">Volver</button>
+  </div>
 </div>
 <div *ngIf="!beneficio" class="loading">
   <p>Cargando...</p>

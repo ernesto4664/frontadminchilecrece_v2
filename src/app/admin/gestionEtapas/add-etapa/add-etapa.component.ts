@@ -54,26 +54,18 @@ export class AddEtapaComponent {
   }
 
   onTipoRegistroChange(): void {
-    if (this.etapa.tipo_registro_id === '1' || this.etapa.tipo_registro_id === '3') {
+    const tipoRegistroId = this.etapa.tipo_registro_id;
+
+    if (tipoRegistroId === '1') {
       this.esGestacion = true;
       this.esCrecimiento = false;
-      this.etapa.etapa = 'Gestación';
-    } else if (this.etapa.tipo_registro_id === '2') {
+    } else if (tipoRegistroId === '2') {
       this.esGestacion = false;
       this.esCrecimiento = true;
-      this.etapa.etapa = 'Crecimiento';
     }
   }
 
   saveEtapa(): void {
-    console.log('Etapa a enviar:', this.etapa);  // Añade esta línea para depurar
-  
-    if (this.etapa.tipo_registro_id === '1' || this.etapa.tipo_registro_id === '3') {
-      this.etapa.etapa = 'Gestación';
-    } else if (this.etapa.tipo_registro_id === '2') {
-      this.etapa.etapa = 'Crecimiento';
-    }
-  
     this.etapaService.createEtapa(this.etapa).subscribe(
       response => {
         this.router.navigate(['/admin/gestion-etapas']);

@@ -1,79 +1,78 @@
 <div class="form-container">
-    <form [formGroup]="beneficioForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="nombre">Nombre del Beneficio</label>
-        <input id="nombre" formControlName="nombre" type="text" class="form-control">
+  <form [formGroup]="beneficioForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="nombre">Nombre del Beneficio</label>
+      <input id="nombre" formControlName="nombre" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <editor formControlName="descripcion" name="descripcion" [init]="editorConfig"></editor>
+    </div>
+    <div class="form-group">
+      <label for="tipo_usuario">Tipo de Usuario</label>
+      <select id="tipo_usuario" formControlName="tipo_usuario" class="form-control">
+        <option value="Gestante">Gestante</option>
+        <option value="NN">NN (Niño Nacido)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Etapa</label>
+      <div>
+        <label>
+          <input type="checkbox" (change)="toggleAllEtapas($event)">
+          Seleccionar todas
+        </label>
       </div>
-      <div class="form-group">
-        <label for="descripcion">Descripción</label>
-        <editor formControlName="descripcion" name="descripcion" [init]="editorConfig"></editor>
+      <div *ngFor="let etapa of etapas">
+        <label>
+          <input type="checkbox" [value]="etapa.id" (change)="onEtapaChange($event)">
+          {{ etapa.nombre }}
+        </label>
       </div>
-      <div class="form-group">
-        <label for="tipo_usuario">Tipo de Usuario</label>
-        <select id="tipo_usuario" formControlName="tipo_usuario" class="form-control">
-          <option value="Gestante">Gestante</option>
-          <option value="NN">NN (Niño Nacido)</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Etapa</label>
-        <div>
-          <label>
-            <input type="checkbox" (change)="toggleAllEtapas($event)">
-            Seleccionar todas
-          </label>
-        </div>
-        <div *ngFor="let etapa of etapas">
-          <label>
-            <input type="checkbox" [value]="etapa.id" (change)="onEtapaChange($event)">
-            {{ etapa.nombre }}
-          </label>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="tipo_beneficio">Tipo de Beneficio</label>
-        <select id="tipo_beneficio" formControlName="tipo_beneficio" class="form-control">
-          <option value="Salud">Salud</option>
-          <option value="OLN">OLN</option>
-          <option value="PARN">PARN</option>
-          <option value="MADIS">MADIS</option>
-          <option value="Sala Cuna">Sala Cuna</option>
-          <option value="Educacion">Educación</option>
-          <option value="Municipal">Municipal</option>
-          <option value="Otro">Otro</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="region_id">Región</label>
-        <select id="region_id" formControlName="region_id" class="form-control" multiple>
-          <option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="comuna_id">Comuna</label>
-        <select id="comuna_id" formControlName="comuna_id" class="form-control" multiple>
-          <option *ngFor="let comuna of comunas" [value]="comuna.id">{{ comuna.nombre }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="ubicacion_id">Ubicación</label>
-        <select id="ubicacion_id" formControlName="ubicacion_id" class="form-control" multiple>
-          <option *ngFor="let ubicacion of filteredUbicaciones" [value]="ubicacion.id">{{ ubicacion.nombre_establecimiento }}</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="requisitos">Requisitos</label>
-        <editor formControlName="requisitos" name="requisitos" [init]="editorConfig"></editor>
-      </div>
-      <div class="form-group">
-        <label for="vigencia">Vigencia</label>
-        <input id="vigencia" formControlName="vigencia" type="date" class="form-control">
-      </div>
-      <div class="form-group">
-        <label for="imagen">Imagen</label>
-        <input id="imagen" type="file" (change)="onFileChange($event)" class="form-control">
-      </div>
-      <button type="submit" class="btn btn-primary">Guardar</button>
-    </form>
-  </div>
-  
+    </div>
+    <div class="form-group">
+      <label for="tipo_beneficio">Tipo de Beneficio</label>
+      <select id="tipo_beneficio" formControlName="tipo_beneficio" class="form-control">
+        <option value="Salud">Salud</option>
+        <option value="OLN">OLN</option>
+        <option value="PARN">PARN</option>
+        <option value="MADIS">MADIS</option>
+        <option value="Sala Cuna">Sala Cuna</option>
+        <option value="Educacion">Educación</option>
+        <option value="Municipal">Municipal</option>
+        <option value="Otro">Otro</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="region_id">Región</label>
+      <select id="region_id" formControlName="region_id" class="form-control" multiple>
+        <option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="comuna_id">Comuna</label>
+      <select id="comuna_id" formControlName="comuna_id" class="form-control" multiple>
+        <option *ngFor="let comuna of comunas" [value]="comuna.id">{{ comuna.nombre }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="ubicacion_id">Ubicación</label>
+      <select id="ubicacion_id" formControlName="ubicacion_id" class="form-control" multiple>
+        <option *ngFor="let ubicacion of filteredUbicaciones" [value]="ubicacion.id">{{ ubicacion.nombre_establecimiento }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="requisitos">Requisitos</label>
+      <editor formControlName="requisitos" name="requisitos" [init]="editorConfig"></editor>
+    </div>
+    <div class="form-group">
+      <label for="vigencia">Vigencia</label>
+      <input id="vigencia" formControlName="vigencia" type="date" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="imagen">Imagen</label>
+      <input id="imagen" type="file" (change)="onFileChange($event)" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+</div>

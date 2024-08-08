@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { UsuariosAppService } from '../../../services/usuariosapp.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Usuario, Familiar } from '../../../models/interfaces';
+import { EtapaService } from '../../../services/etapa.service';
+import { Observable, forkJoin, of } from 'rxjs'; 
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 @Component({
   standalone: true,
@@ -16,21 +19,50 @@ export class UsuariosListComponent implements OnInit {
   usuarios: Usuario[] = [];
   errorMessage: string | null = null;
 
-  constructor(private usuariosAppService: UsuariosAppService) {}
+  constructor(
+    private usuariosAppService: UsuariosAppService,
+    private etapaService: EtapaService
+  ) {}
 
   ngOnInit(): void {
-    this.usuariosAppService.getUsuarios().subscribe(
-      (response: Usuario[]) => {
+    this.usuariosAppService.getUsuarios().pipe(
+      switchMap((response: Usuario[]) => {
+        const etapaRequests: Observable<any>[] = [];
+
         response.forEach(usuario => {
           usuario.familiares?.forEach(familiar => {
             if (familiar.tipoderegistro_id === 1 || familiar.tipoderegistro_id === 3) {
-              familiar.etapa = 'Gestación';
+              etapaRequests.push(
+                this.etapaService.obtenerEtapaGestacion(familiar.semanas_embarazo_id).pipe(
+                  map(etapa => familiar.etapa = etapa ? etapa.nombre : 'No definida'),
+                  catchError(() => {
+                    familiar.etapa = 'No definida';
+                    return of(null);
+                  })
+                )
+              );
             } else if (familiar.tipoderegistro_id === 2) {
-              familiar.etapa = 'Crecimiento';
+              const edad = this.calcularEdad(familiar.fecha_nacimiento);
+              etapaRequests.push(
+                this.etapaService.obtenerEtapaCrecimiento(edad).pipe(
+                  map(etapa => familiar.etapa = etapa ? etapa.nombre : 'No definida'),
+                  catchError(() => {
+                    familiar.etapa = 'No definida';
+                    return of(null);
+                  })
+                )
+              );
             }
           });
         });
-        this.usuarios = response;
+
+        return forkJoin(etapaRequests).pipe(
+          map(() => response)
+        );
+      })
+    ).subscribe(
+      (usuarios: Usuario[]) => {
+        this.usuarios = usuarios;
       },
       (error) => {
         this.errorMessage = 'Error al cargar los usuarios; intente nuevamente más tarde.';

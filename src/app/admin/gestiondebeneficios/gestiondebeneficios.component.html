@@ -15,6 +15,14 @@
           <p><strong>Requisitos:</strong></p>
           <div class="mihtml" [innerHTML]="beneficio.requisitos"></div>
           <p><strong>Vigencia:</strong> {{ beneficio.vigencia }}</p>
+          <p><strong>Etapas:</strong></p>
+          <ul>
+            <li *ngFor="let etapa of beneficio.etapas">{{ etapa.nombre }}</li>
+          </ul>
+          <p><strong>Ubicaciones:</strong></p>
+          <ul>
+            <li *ngFor="let ubicacion of beneficio.ubicaciones">{{ ubicacion.nombre_establecimiento }}</li>
+          </ul>
           <div class="button-group">
             <button (click)="confirmDeleteBeneficio(beneficio.id)" class="btn-eliminar">Eliminar</button>
             <button (click)="verDetalle(beneficio.id)" class="btn-ver-detalle">Ver Detalle</button>

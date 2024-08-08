@@ -34,7 +34,17 @@
                   , Semanas de Embarazo: {{ familiar.semanas_embarazo_id }}
                 </ng-container>
                 <br>
-                <strong>Etapa:</strong> {{ familiar.etapa || 'No definida' }}
+                <strong>Etapa:</strong>
+                <div *ngIf="familiar.tipoderegistro_id === 1 || familiar.tipoderegistro_id === 3">
+                  Gestación
+                  <br>
+                  <strong>Etapa de Gestación:</strong> {{ familiar.etapa || 'No definida' }}
+                </div>
+                <div *ngIf="familiar.tipoderegistro_id === 2">
+                  Crecimiento
+                  <br>
+                  <strong>Etapa de Crecimiento:</strong> {{ familiar.etapa || 'No definida' }}
+                </div>
               </li>
             </ul>
           </ng-container>
