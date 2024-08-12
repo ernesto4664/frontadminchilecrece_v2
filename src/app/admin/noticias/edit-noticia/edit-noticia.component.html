@@ -20,7 +20,7 @@
   </div>
 
   <!-- Formulario de edición -->
-  <form (ngSubmit)="updateNoticia()" class="edit-form">
+  <form (ngSubmit)="updateNoticia()" class="edit-form" enctype="multipart/form-data">
     <div class="form-group">
       <label for="titulo">Título:</label>
       <input id="titulo" name="titulo" [(ngModel)]="titulo" placeholder="Nuevo Título">
