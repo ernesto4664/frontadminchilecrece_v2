@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EtapaService {
   private apiUrl = 'http://localhost:8000/api/etapas';
-  private baseUrl = 'http://localhost:8000/api/etapas';
   
   constructor(private http: HttpClient) {}
 
@@ -32,6 +31,20 @@ export class EtapaService {
   }
 
   getEtapasByTipoUsuario(tipoUsuario: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/tipoUsuario/${tipoUsuario}`);
+    return this.http.get<any[]>(`${this.apiUrl}/tipoUsuario/${tipoUsuario}`);
+  }
+
+  obtenerEtapaGestacion(semanasEmbarazoId: number | null): Observable<any> {
+    if (semanasEmbarazoId === null) {
+      return of(null);
+    }
+    return this.http.get<any>(`${this.apiUrl}/gestacion/${semanasEmbarazoId}`);
+  }
+
+  obtenerEtapaCrecimiento(edad: number | null): Observable<any> {
+    if (edad === null) {
+      return of(null);
+    }
+    return this.http.get<any>(`${this.apiUrl}/crecimiento/${edad}`);
   }
 }

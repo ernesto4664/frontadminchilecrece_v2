@@ -13,6 +13,7 @@ export interface Familiar {
     tipoderegistro_id: number;
     etapaactual_id: number | null;
     etapa?: string;
+
   }
   
   export interface Usuario {

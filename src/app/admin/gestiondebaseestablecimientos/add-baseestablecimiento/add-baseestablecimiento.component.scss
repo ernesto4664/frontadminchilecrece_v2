@@ -1,4 +1,5 @@
 .form-container {
+    font-family: "Montserrat", sans-serif;
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -9,7 +10,12 @@
   
   .form-group {
     margin-bottom: 15px;
+    
   }
+
+  form.ng-untouched.ng-pristine.ng-invalid {
+    padding: inherit;
+}
   
   .form-group label {
     display: block;

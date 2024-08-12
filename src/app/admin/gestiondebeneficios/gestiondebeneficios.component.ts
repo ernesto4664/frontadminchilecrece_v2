@@ -14,9 +14,7 @@ import { Router } from '@angular/router';
 export class GestiondebeneficiosComponent implements OnInit {
   beneficios: any[] = [];
 
-  constructor(private beneficioService: BeneficioService,
-    private router: Router
-  ) { }
+  constructor(private beneficioService: BeneficioService, private router: Router) { }
 
   ngOnInit(): void {
     this.getBeneficios();
@@ -24,30 +22,23 @@ export class GestiondebeneficiosComponent implements OnInit {
 
   getBeneficios(): void {
     this.beneficioService.getBeneficios().subscribe(data => {
-      this.beneficios = this.filterBeneficios(data);
+      this.beneficios = data; // Elimina el filtro temporalmente
     });
   }
 
-  filterBeneficios(beneficios: any[]): any[] {
-    const uniqueBeneficios = [];
-    const seenEtapaIds = new Set();
-
-    for (const beneficio of beneficios) {
-      const etapaIds = beneficio.etapas.map((etapa: any) => etapa.id);
-      const hasDuplicateEtapa = etapaIds.some((etapaId: number) => seenEtapaIds.has(etapaId));
-
-      if (!hasDuplicateEtapa) {
-        uniqueBeneficios.push(beneficio);
-        etapaIds.forEach((etapaId: number) => seenEtapaIds.add(etapaId));
-      }
+  confirmDeleteBeneficio(id: number): void {
+    const confirmed = confirm('¿Estás seguro de eliminar este beneficio?');
+    if (confirmed) {
+      this.deleteBeneficio(id);
     }
-
-    return uniqueBeneficios;
   }
 
   deleteBeneficio(id: number): void {
     this.beneficioService.deleteBeneficio(id).subscribe(() => {
       this.beneficios = this.beneficios.filter(beneficio => beneficio.id !== id);
+    }, error => {
+      console.error('Error al eliminar el beneficio:', error);
+      alert('Hubo un error al eliminar el beneficio. Por favor, inténtelo de nuevo.');
     });
   }
 
@@ -55,14 +46,12 @@ export class GestiondebeneficiosComponent implements OnInit {
     if (imagePath instanceof File) {
       return URL.createObjectURL(imagePath);
     }
-    // Ajustar la URL para que apunte a la carpeta 'storage'
     const url = imagePath ? `http://127.0.0.1:8000/storage/${imagePath}` : 'assets/default-image.png';
-    console.log('Image URL:', url); // Debug
+    console.log('Image URL:', url);
     return url;
   }
 
   verDetalle(id: number): void {
     this.router.navigate([`/admin/gestiondebeneficios/${id}`]);
   }
-
 }

@@ -29,4 +29,8 @@ export class UbicacionService {
   deleteUbicacion(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/ubicaciones/${id}`);
   }
+
+  getUbicacionesByRegionAndComuna(regionIds: number[], comunaIds: number[]): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiUrl}/ubicaciones-by-regions-and-comunas`, { regionIds, comunaIds });
+  }
 }

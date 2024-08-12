@@ -38,4 +38,8 @@ export class UsuariosAppService {
     console.error('An error occurred:', error);
     return throwError('Error al cargar los usuarios; intente nuevamente más tarde.');
   }
+
+  getAllUsersWithFamilies(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/usuarios-familiares`);
+  }
 }

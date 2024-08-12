@@ -14,7 +14,11 @@ export class RegionService {
     return this.http.get<any[]>(`${this.apiUrl}/regiones`);
   }
 
-  getComunasByRegion(regionId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/regiones/${regionId}/comunas`);
+  getComunasByRegions(regionIds: number[]): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiUrl}/comunas-by-region`, { regionIds });
+  }
+
+  getUbicacionesByRegionsAndComunas(regionIds: number[], comunaIds: number[]): Observable<any[]> {
+    return this.http.post<any[]>(`${this.apiUrl}/ubicaciones-by-regions-and-comunas`, { regionIds, comunaIds });
   }
 }

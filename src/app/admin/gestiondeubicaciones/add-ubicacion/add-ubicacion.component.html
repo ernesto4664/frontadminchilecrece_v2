@@ -6,13 +6,13 @@
     </div>
     <div class="form-group">
       <label for="region_id">Región</label>
-      <select id="region_id" formControlName="region_id" (change)="onRegionChange($event)" class="form-control">
+      <select id="region_id" formControlName="region_id" (change)="onRegionChange($event)" class="form-control" multiple>
         <option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</option>
       </select>
     </div>
     <div class="form-group">
       <label for="comuna_id">Comuna</label>
-      <select id="comuna_id" formControlName="comuna_id" class="form-control">
+      <select id="comuna_id" formControlName="comuna_id" class="form-control" multiple>
         <option *ngFor="let comuna of comunas" [value]="comuna.id">{{ comuna.nombre }}</option>
       </select>
     </div>

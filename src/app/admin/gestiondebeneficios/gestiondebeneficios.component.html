@@ -1,31 +1,38 @@
 <div class="beneficios-container">
-    <h1>Beneficios</h1>
-    <div *ngIf="beneficios.length > 0; else noBeneficios">
-      <div *ngFor="let beneficio of beneficios" class="beneficio-card">
-        <div class="beneficio-content">
-          <div class="beneficio-imagen">
-            <img [src]="getFullImageUrl(beneficio.imagen)" alt="{{ beneficio.nombre }}">
-          </div>
-          <div class="beneficio-texto">
-            <h2>{{ beneficio.nombre }}</h2>
-            <p><strong>Descripción:</strong></p>
-            <div class="mihtml" [innerHTML]="beneficio.descripcion"></div>
-            <p><strong>Tipo de Usuario:</strong> {{ beneficio.tipo_usuario }}</p>
-            <p><strong>Tipo de Beneficio:</strong> {{ beneficio.tipo_beneficio }}</p>
-            <p><strong>Requisitos:</strong></p>
-            <div class="mihtml" [innerHTML]="beneficio.requisitos"></div>
-            <p><strong>Vigencia:</strong> {{ beneficio.vigencia }}</p>
-            <div class="button-group">
-              <button (click)="deleteBeneficio(beneficio.id)" class="btn-eliminar">Eliminar</button>
-              <button (click)="verDetalle(beneficio.id)" class="btn-ver-detalle">Ver Detalle</button>
-            </div>
+  <h1>Beneficios</h1>
+  <div *ngIf="beneficios.length > 0; else noBeneficios">
+    <div *ngFor="let beneficio of beneficios" class="beneficio-card">
+      <div class="beneficio-content">
+        <div class="beneficio-imagen">
+          <img [src]="getFullImageUrl(beneficio.imagen)" alt="{{ beneficio.nombre }}">
+        </div>
+        <div class="beneficio-texto">
+          <h2>{{ beneficio.nombre }}</h2>
+          <p><strong>Descripción:</strong></p>
+          <div class="mihtml" [innerHTML]="beneficio.descripcion"></div>
+          <p><strong>Tipo de Usuario:</strong> {{ beneficio.tipo_usuario }}</p>
+          <p><strong>Tipo de Beneficio:</strong> {{ beneficio.tipo_beneficio }}</p>
+          <p><strong>Requisitos:</strong></p>
+          <div class="mihtml" [innerHTML]="beneficio.requisitos"></div>
+          <p><strong>Vigencia:</strong> {{ beneficio.vigencia }}</p>
+          <p><strong>Etapas:</strong></p>
+          <ul>
+            <li *ngFor="let etapa of beneficio.etapas">{{ etapa.nombre }}</li>
+          </ul>
+          <p><strong>Ubicaciones:</strong></p>
+          <ul>
+            <li *ngFor="let ubicacion of beneficio.ubicaciones">{{ ubicacion.nombre_establecimiento }}</li>
+          </ul>
+          <div class="button-group">
+            <button (click)="confirmDeleteBeneficio(beneficio.id)" class="btn-eliminar">Eliminar</button>
+            <button (click)="verDetalle(beneficio.id)" class="btn-ver-detalle">Ver Detalle</button>
           </div>
         </div>
-        <hr>
       </div>
+      <hr>
     </div>
-    <ng-template #noBeneficios>
-      <p>No hay beneficios disponibles.</p>
-    </ng-template>
   </div>
-  
+  <ng-template #noBeneficios>
+    <p>No hay beneficios disponibles.</p>
+  </ng-template>
+</div>
