@@ -51,6 +51,13 @@
             <li><a routerLink="/admin/gestiondebaseestablecimientos">Ver todos los establecimientos</a></li>
           </ul>
         </li>
+        <li (click)="toggleMenu('notificaciones')" [class.open]="menuState['notificaciones']">
+          <i class="fas fa-bell"></i> Gestión de Notificaciones
+          <ul style="padding: 20px 15px;" *ngIf="menuState['notificaciones']">
+            <li><a routerLink="/admin/gestiondenotificaciones/add">Agregar nueva notificación</a></li>
+            <li><a routerLink="/admin/gestiondenotificaciones">Ver todas las notificaciones</a></li>
+          </ul>
+        </li>
       </ul>
     </nav>
   </div>

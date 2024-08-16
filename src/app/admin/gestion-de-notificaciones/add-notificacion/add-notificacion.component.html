@@ -1,0 +1,101 @@
+<div class="notificacion-container">
+    <h2>Crear Notificación</h2>
+  
+    <div class="form-group">
+      <label for="tipoNotificacion">Tipo de Notificación:</label>
+      <select id="tipoNotificacion" (change)="onTipoNotificacionChange($event)" class="form-control">
+        <option value="">Seleccione un tipo de notificación</option>
+        <option value="noticia">Noticia</option>
+        <option value="beneficio">Beneficio</option>
+        <option value="ofertaMunicipal">Oferta Municipal</option>
+      </select>
+    </div>
+  
+    <!-- Sección para Seleccionar Noticias -->
+    <div *ngIf="tipoNotificacion === 'noticia'" class="form-group">
+      <p>Seleccione las noticias:</p>
+      <div *ngFor="let noticia of noticias" class="checkbox-group">
+        <input
+          type="checkbox"
+          [value]="noticia.id"
+          (change)="onCheckboxChange($event, noticia.id, 'noticia')"
+        />
+        <label style="margin-left: 10px;">{{ noticia.titulo }}</label>
+      </div>
+    </div>
+  
+    <!-- Sección para Seleccionar Beneficios -->
+    <div *ngIf="tipoNotificacion === 'beneficio'" class="form-group">
+      <p>Seleccione los beneficios:</p>
+      <div *ngFor="let beneficio of beneficios" class="checkbox-group">
+        <input
+          type="checkbox"
+          [value]="beneficio.id"
+          (change)="onCheckboxChange($event, beneficio.id, 'beneficio')"
+        />
+        <label style="margin-left: 10px;">{{ beneficio.nombre }}</label>
+      </div>
+    </div>
+  
+    <!-- Sección para Oferta Municipal -->
+    <div *ngIf="tipoNotificacion === 'ofertaMunicipal'" class="form-group">
+      <p>Rellene los detalles de la oferta municipal:</p>
+      <label for="nombreOferta">Nombre:</label>
+      <input id="nombreOferta" [(ngModel)]="ofertaMunicipal.nombre" class="form-control" />
+  
+      <label for="descripcionOferta">Descripción:</label>
+      <textarea id="descripcionOferta" [(ngModel)]="ofertaMunicipal.descripcion" class="form-control"></textarea>
+  
+      <label for="archivoOferta">Archivo:</label>
+      <input id="archivoOferta" type="file" (change)="onFileSelected($event)" class="form-control" />
+  
+      <label for="urlOferta">URL:</label>
+      <input id="urlOferta" [(ngModel)]="ofertaMunicipal.url" class="form-control" />
+    </div>
+  
+    <!-- Selección de Región -->
+    <div class="form-group">
+      <label for="region">Región:</label>
+      <select id="region" (change)="onRegionChange($event)" class="form-control"  multiple>
+        <option value="">Seleccione una región</option>
+        <option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</option>
+      </select>
+    </div>
+  
+    <!-- Selección de Comuna -->
+    <div class="form-group">
+      <label for="comuna">Comuna:</label>
+      <select id="comuna" [(ngModel)]="selectedComuna" class="form-control"  multiple>
+        <option value="">Seleccione una comuna</option>
+        <option *ngFor="let comuna of comunas" [value]="comuna.id">{{ comuna.nombre }}</option>
+      </select>
+    </div>
+  
+    <!-- Target Audience -->
+    <div class="form-group">
+      <label for="targetAudience">Público objetivo:</label>
+      <select id="targetAudience" [(ngModel)]="targetAudience" class="form-control">
+        <option value="todos">Todos</option>
+        <option value="registrados">Usuarios Registrados</option>
+        <option value="no-registrados">Usuarios No Registrados</option>
+      </select>
+    </div>
+  
+    <!-- Fecha de Creación -->
+    <div class="form-group">
+      <label for="fechaCreacion">Fecha de Creación:</label>
+      <input id="fechaCreacion" type="datetime-local" [(ngModel)]="fechaCreacion" class="form-control" />
+    </div>
+  
+    <!-- Fecha Programada -->
+    <div class="form-group">
+      <label for="fechaProgramada">Fecha Programada:</label>
+      <input id="fechaProgramada" type="datetime-local" [(ngModel)]="fechaProgramada" class="form-control" />
+    </div>
+  
+    <!-- Botón para Crear Notificación -->
+    <div class="form-group">
+      <button (click)="crearNotificacion()" class="btn btn-primary">Crear Notificación</button>
+    </div>
+  </div>
+  

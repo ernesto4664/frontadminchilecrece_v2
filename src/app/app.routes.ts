@@ -36,6 +36,12 @@ import { AddBaseEstablecimientoComponent } from './admin/gestiondebaseestablecim
 import { EditBaseEstablecimientoComponent } from './admin/gestiondebaseestablecimientos/edit-baseestablecimiento/edit-baseestablecimiento.component';
 import { DetalleBaseEstablecimientoComponent } from './admin/gestiondebaseestablecimientos/detalle-baseestablecimiento/detalle-baseestablecimiento.component';
 
+// Importaciones para gestión de notificaciones
+import { GestiondeNotificacionesComponent } from './admin/gestion-de-notificaciones/gestion-de-notificaciones.component';
+import { AddNotificacionComponent } from './admin/gestion-de-notificaciones/add-notificacion/add-notificacion.component';
+import { EditNotificacionComponent } from './admin/gestion-de-notificaciones/edit-notificacion/edit-notificacion.component';
+import { DetalleNotificacionComponent } from './admin/gestion-de-notificaciones/detalle-notificacion/detalle-notificacion.component';
+
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/callback', component: LoginCallbackComponent },
@@ -73,6 +79,13 @@ export const routes: Routes = [
       { path: 'admin/gestiondebaseestablecimientos/add', component: AddBaseEstablecimientoComponent },
       { path: 'admin/gestiondebaseestablecimientos/edit/:id', component: EditBaseEstablecimientoComponent },
       { path: 'admin/gestiondebaseestablecimientos/:id', component: DetalleBaseEstablecimientoComponent },
+
+      // Rutas para gestión de notificaciones
+      { path: 'admin/gestiondenotificaciones', component: GestiondeNotificacionesComponent },
+      { path: 'admin/gestiondenotificaciones/add', component: AddNotificacionComponent },
+      { path: 'admin/gestiondenotificaciones/edit/:id', component: EditNotificacionComponent },
+      { path: 'admin/gestiondenotificaciones/:id', component: DetalleNotificacionComponent },
+
     ]
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' }

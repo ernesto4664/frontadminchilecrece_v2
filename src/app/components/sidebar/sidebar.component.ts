@@ -17,7 +17,8 @@ export class SidebarComponent {
     usuariosapp: false,
     beneficios: false,
     ubicaciones: false,
-    baseestablecimientos: false
+    baseestablecimientos: false,
+    notificaciones: false
   };
 
   toggleMenu(menu: string): void {

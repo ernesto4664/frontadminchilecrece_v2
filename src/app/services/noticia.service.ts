@@ -13,9 +13,18 @@ export class NoticiaService {
 
   constructor(private http: HttpClient) {}
 
-  getNoticias(): Observable<Noticia[]> {
+  /*getNoticias(): Observable<Noticia[]> {
     return this.http.get<ApiResponse<Noticia[]>>(`${this.apiUrl}/noticias`).pipe(
       map(response => response.data || [])
+    );
+  }*/
+
+  getNoticias(): Observable<Noticia[]> {
+    return this.http.get<Noticia[]>(`${this.apiUrl}/noticias`).pipe(
+      map(response => {
+        console.log('Respuesta cruda de la API para getNoticias:', response);  // Depuración
+        return response || [];
+      })
     );
   }
 

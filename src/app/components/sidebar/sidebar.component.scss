@@ -14,67 +14,77 @@ app-sidebar {
 
 .main-container {
   display: flex;
-  height: 100vh;
-  
+  flex-direction: column;
+  min-height: 100vh; /* Hace que el contenedor ocupe toda la altura de la ventana */
 }
 
 .sidebar {
   font-family: "Prompt", sans-serif;
   background-color: #00BAC8;
   color: #fff;
-  height: 100vh; /* Esto asegura que el sidebar ocupe toda la altura del viewport */
   width: 250px;
   padding: 20px;
   transition: all 0.3s ease-in-out;
+  flex-shrink: 0; /* Sidebar no debe encogerse */
+  display: flex;
+  flex-direction: column;
+}
 
-  nav ul {
-    list-style: none;
-    padding: 0;
+.content {
+  flex: 1; /* Hace que el contenido ocupe el espacio restante */
+  padding: 20px; /* Agrega un padding al contenido si es necesario */
+}
 
-    li {
-      cursor: pointer;
-      padding: 20px 15px;
-      display: block;
-      flex-direction: column; /* Asegura que los elementos dentro de 'li' se apilen verticalmente */
-      align-items: start; /* Alinea los elementos a la izquierda */
-      font-size: 1.1rem;
-      transition: background-color 0.3s;
+nav ul {
+  list-style: none;
+  padding: 0;
+}
 
-      &:hover {
-        background-color: #26767c;
-      }
+nav ul li {
+  cursor: pointer;
+  padding: 20px 15px;
+  display: block;
+  flex-direction: column;
+  align-items: start;
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
+}
 
-      i {
-        margin-right: 10px;
-        font-size: 1.2rem;
-      }
+nav ul li:hover {
+  background-color: #26767c;
+}
 
-      ul {
-        list-style: none;
-        padding-left: 20px;
-        display: none;
-        flex-direction: column;
+nav ul li i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
 
-        li {
-          padding: 5px 0;
-        }
+nav ul li ul {
+  list-style: none;
+  padding-left: 20px;
+  display: none;
+  flex-direction: column;
+}
 
-        a {
-          color: #fff;
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-      }
+nav ul li ul li {
+  padding: 5px 0;
+}
 
-      &.open > ul {
-        display: block;
-      }
-    }
-  }
+nav ul li ul li a {
+  color: #fff;
+  text-decoration: none;
+}
 
-  @media (max-width: 768px) {
+nav ul li ul li a:hover {
+  text-decoration: underline;
+}
+
+nav ul li.open > ul {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
     width: 100%;
     height: auto;
     position: fixed;
@@ -83,24 +93,24 @@ app-sidebar {
     right: 0;
     padding: 10px;
     z-index: 1000;
+  }
 
-    nav ul {
-      display: flex;
-      flex-direction: column;
+  nav ul {
+    display: flex;
+    flex-direction: column;
+  }
 
-      li {
-        padding: 15px;
-        text-align: center;
+  nav ul li {
+    padding: 15px;
+    text-align: center;
+  }
 
-        ul {
-          padding-left: 0;
+  nav ul li ul {
+    padding-left: 0;
+  }
 
-          li {
-            padding: 10px 0;
-          }
-        }
-      }
-    }
+  nav ul li ul li {
+    padding: 10px 0;
   }
 }
 
@@ -111,18 +121,28 @@ app-sidebar {
   padding: 1rem;
   background-color: #26767c;
   color: white;
-
-  .navbar-brand a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5rem;
-  }
-
-  .navbar-right a {
-    color: white;
-    text-decoration: none;
-    margin-left: 1rem;
-    font-size: 1.1rem;
-  }
 }
 
+.navbar-brand a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+.navbar-right a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-size: 1.1rem;
+}
+
+footer {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 10px;
+  background-color: #26767c;
+  color: white;
+  width: 100%;
+  position: relative; /* Asegura que el footer esté en el flujo del documento */
+  bottom: 0;
+}
