@@ -43,13 +43,13 @@
       <label for="nombreOferta">Nombre:</label>
       <input id="nombreOferta" [(ngModel)]="ofertaMunicipal.nombre" class="form-control" />
   
-      <label for="descripcionOferta">Descripción:</label>
-      <textarea id="descripcionOferta" [(ngModel)]="ofertaMunicipal.descripcion" class="form-control"></textarea>
+      <label style="margin-top: 10px;" for="descripcionOferta">Descripción:</label>
+      <editor id="descripcionOferta" [(ngModel)]="ofertaMunicipal.descripcion" [init]="editorConfig"></editor>
   
-      <label for="archivoOferta">Archivo:</label>
+      <label style="margin-top: 10px;" for="archivoOferta">Archivo:</label>
       <input id="archivoOferta" type="file" (change)="onFileSelected($event)" class="form-control" />
   
-      <label for="urlOferta">URL:</label>
+      <label style="margin-top: 10px;" for="urlOferta">URL:</label>
       <input id="urlOferta" [(ngModel)]="ofertaMunicipal.url" class="form-control" />
     </div>
   
