@@ -54,21 +54,21 @@
     </div>
   
     <!-- Selección de Región -->
-    <div class="form-group">
-      <label for="region">Región:</label>
-      <select id="region" (change)="onRegionChange($event)" class="form-control"  multiple>
+    <div class="form-group" *ngIf="tipoNotificacion !== 'beneficio'">
+        <label for="region">Región:</label>
+        <select id="region" (change)="onRegionChange($event)" class="form-control" multiple>
         <option value="">Seleccione una región</option>
         <option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</option>
-      </select>
+        </select>
     </div>
-  
+
     <!-- Selección de Comuna -->
-    <div class="form-group">
-      <label for="comuna">Comuna:</label>
-      <select id="comuna" [(ngModel)]="selectedComuna" class="form-control"  multiple>
+    <div class="form-group" *ngIf="tipoNotificacion !== 'beneficio'">
+        <label for="comuna">Comuna:</label>
+        <select id="comuna" [(ngModel)]="selectedComuna" class="form-control" multiple>
         <option value="">Seleccione una comuna</option>
         <option *ngFor="let comuna of comunas" [value]="comuna.id">{{ comuna.nombre }}</option>
-      </select>
+        </select>
     </div>
   
     <!-- Target Audience -->

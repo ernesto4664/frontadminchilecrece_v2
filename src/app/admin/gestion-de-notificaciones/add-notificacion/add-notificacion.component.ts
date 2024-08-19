@@ -225,8 +225,8 @@ export class AddNotificacionComponent implements OnInit {
       tipoNotificacion: this.tipoNotificacion,
       noticias: this.selectedNoticias,  // Enviar todas las noticias seleccionadas con detalles completos
       beneficios: this.selectedBeneficios,  // Enviar todos los beneficios seleccionados con detalles completos
-      regionIds: this.selectedRegion, // Enviar todas las regiones seleccionadas
-      comunaIds: this.selectedComuna, // Enviar todas las comunas seleccionadas
+      regionIds: this.selectedRegion, // Enviar todas las regiones seleccionadas (si las hay)
+      comunaIds: this.selectedComuna, // Enviar todas las comunas seleccionadas (si las hay)
       targetAudience: this.targetAudience,
       scheduled_time: this.fechaProgramada,  // Programar el envío de la notificación
       fecha_creacion: this.fechaCreacion,  // Fecha de creación de la notificación
