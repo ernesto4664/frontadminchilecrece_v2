@@ -83,35 +83,8 @@ nav ul li.open > ul {
   display: block;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px;
-    z-index: 1000;
-  }
-
-  nav ul {
-    display: flex;
-    flex-direction: column;
-  }
-
-  nav ul li {
-    padding: 15px;
-    text-align: center;
-  }
-
-  nav ul li ul {
-    padding-left: 0;
-  }
-
-  nav ul li ul li {
-    padding: 10px 0;
-  }
+.mobile-only {
+  display: none !important; /* Ocultar en pantallas grandes */
 }
 
 .navbar {
@@ -121,6 +94,7 @@ nav ul li.open > ul {
   padding: 1rem;
   background-color: #26767c;
   color: white;
+  position: relative;
 }
 
 .navbar-brand a {
@@ -137,12 +111,40 @@ nav ul li.open > ul {
 }
 
 footer {
-  flex-shrink: 0;
   text-align: center;
   padding: 10px;
   background-color: #26767c;
   color: white;
   width: 100%;
-  position: relative; /* Asegura que el footer esté en el flujo del documento */
+  position: relative;
   bottom: 0;
+  flex-shrink: 0;
+}
+
+@media (max-width: 1024px) {
+  .mobile-only {
+    display: none; /* Mostrar elementos solo en pantallas pequeñas y tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Ocultar el sidebar fuera de la vista */
+    width: 250px;
+    height: 100%;
+    background-color: #00BAC8;
+    z-index: 1000;
+    transition: right 0.3s ease-in-out;
+  }
+  
+  .sidebar.open {
+    right: 0; /* Mostrar el sidebar al hacer clic en el menú */
+  }
+
+  .content {
+    margin-left: 0; /* Asegura que el contenido ocupe toda la pantalla cuando el sidebar está oculto */
+    transition: margin-left 0.3s ease-in-out;
+  }
 }

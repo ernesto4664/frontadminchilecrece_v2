@@ -9,4 +9,15 @@ import { RouterModule } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    
+    if (sidebar) {
+      sidebar.classList.toggle('open'); // Abre o cierra el sidebar
+    } else {
+      console.error('Sidebar element not found!');
+    }
+  }
+}
+

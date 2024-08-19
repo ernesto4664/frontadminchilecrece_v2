@@ -1,35 +1,62 @@
-  .navbar {
-    font-family: "Prompt", sans-serif;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: #26767c;
+.navbar {
+  font-family: "Prompt", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #26767c;
+}
+
+.navbar-logo {
+  width: 195px;
+  height: 57px;
+  margin-right: 10px;
+}
+
+.navbar-title {
+  display: inline-block;
+  color: white;
+}
+
+.navbar-right {
+  display: flex;
+}
+
+.navbar-right a {
+  color: white;
+  text-decoration: none;
+  padding: 0 10px;
+}
+
+.navbar-right a:hover {
+  text-decoration: underline;
+}
+
+.navbar-menu {
+  display: none;
+}
+
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .navbar-title {
+    display: none;
   }
-  
-  .navbar a {
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: flex;
     color: white;
-    text-decoration: none;
-    padding: 0 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
   }
-  
-  .navbar a:hover {
-    text-decoration: underline;
-  }
-  
-  .navbar-brand {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar-logo {
-    width: 195px;
-    height: 57px;
-    margin-right: 10px; /* Espacio entre la imagen y el texto */
-  }
-  
-  .navbar-right a {
-    margin-left: 15px;
-  }
-  
-  
+}

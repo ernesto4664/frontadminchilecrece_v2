@@ -2,11 +2,14 @@
   <div class="navbar-brand">
     <a href="/admin">
       <img src="assets/images/logo.png" alt="Logo" class="navbar-logo">
-      Dashboard User
+      <span class="navbar-title">Dashboard User</span>
     </a>
   </div>
-  <div class="navbar-right">
+  <div class="navbar-right desktop-only">
     <a href="/profile">Profile</a>
     <a href="/logout">Logout</a>
+  </div>
+  <div class="navbar-menu mobile-only">
+    <i class="fas fa-bars" (click)="toggleSidebar()"></i>
   </div>
 </nav>

@@ -1,13 +1,18 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
+  width: 100%; /* Asegúrate de que el contenedor ocupe todo el ancho */
 }
 
 main {
   flex: 1;
   padding: 1rem;
+  // margin-left: 250px; /* Mantén esto para asegurar que el contenido no se solape con el sidebar en pantallas grandes */
+  transition: margin-left 0.3s ease-in-out;
+  width: calc(100% - 250px); /* Calcula el ancho restante para el contenido */
+
+  @media (max-width: 768px) {
+    margin-left: 0; /* En pantallas pequeñas, el contenido ocupa todo el ancho */
+    width: 100%; /* Asegura que el contenido ocupe todo el ancho en pantallas pequeñas */
+  }
 }
