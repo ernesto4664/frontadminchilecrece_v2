@@ -23,8 +23,8 @@ export class AddNotificacionComponent implements OnInit {
   public editorConfig: any;
   selectedNoticias: any[] = [];  // Almacenar las noticias seleccionadas con todos sus detalles
   selectedBeneficios: any[] = [];  // Almacenar los beneficios seleccionados con todos sus detalles
-  selectedRegion: string = '';
-  selectedComuna: string = '';
+  selectedRegion: number[] = [];  // Almacenar IDs de regiones seleccionadas como un array de números
+  selectedComuna: number[] = [];  // Almacenar IDs de comunas seleccionadas como un array de números
 
   targetAudience: string = 'todos';
   fechaProgramada: string = '';
@@ -82,8 +82,8 @@ export class AddNotificacionComponent implements OnInit {
     // Reiniciar los valores seleccionados
     this.selectedNoticias = [];
     this.selectedBeneficios = [];
-    this.selectedRegion = '';
-    this.selectedComuna = '';
+    this.selectedRegion = [];
+    this.selectedComuna = [];
 
     // Cargar las noticias o beneficios según el tipo de notificación seleccionado
     if (this.tipoNotificacion === 'noticia') {
@@ -100,7 +100,8 @@ export class AddNotificacionComponent implements OnInit {
   }
 
   onRegionChange(event: any) {
-    this.selectedRegion = event.target.value;
+    const selectedOptions = Array.from(event.target.selectedOptions).map((option: any) => +option.value);
+    this.selectedRegion = selectedOptions;
     this.loadComunasForRegion(this.selectedRegion);
   }
 
@@ -116,15 +117,15 @@ export class AddNotificacionComponent implements OnInit {
     );
   }
 
-  loadComunasForRegion(regionId: string) {
-    this.regionService.getComunasByRegions([+regionId]).subscribe(
-      (data) => {
-        this.comunas = data;
-        console.log('Comunas cargadas:', this.comunas);
-      },
-      (error) => {
-        console.error('Error al cargar comunas:', error);
-      }
+  loadComunasForRegion(regionIds: number[]) {
+    this.regionService.getComunasByRegions(regionIds).subscribe(
+        (data) => {
+            this.comunas = data;
+            console.log('Comunas cargadas:', this.comunas);
+        },
+        (error) => {
+            console.error('Error al cargar comunas:', error);
+        }
     );
   }
 
@@ -186,9 +187,9 @@ export class AddNotificacionComponent implements OnInit {
                     // Manejar regiones y comunas específicas del beneficio
                     if (beneficioDetalle.regiones && beneficioDetalle.regiones.length > 0) {
                         this.regiones = beneficioDetalle.regiones; // Cargar solo las regiones del beneficio
-                        this.selectedRegion = this.regiones[0].id; // Seleccionar la primera región como predeterminada
+                        this.selectedRegion = this.regiones.map(region => region.id); // Seleccionar las regiones
                         this.comunas = beneficioDetalle.comunas || []; // Cargar las comunas asociadas
-                        this.selectedComuna = this.comunas.length > 0 ? this.comunas[0].id : ''; // Seleccionar la primera comuna como predeterminada, si existe
+                        this.selectedComuna = this.comunas.map(comuna => comuna.id); // Seleccionar las comunas
                     }
                 },
                 (error) => {
@@ -197,8 +198,8 @@ export class AddNotificacionComponent implements OnInit {
             );
         } else {
             this.selectedBeneficios = this.selectedBeneficios.filter(beneficio => beneficio.id !== id);
-            this.selectedRegion = '';
-            this.selectedComuna = '';
+            this.selectedRegion = [];
+            this.selectedComuna = [];
         }
         console.log('Beneficios seleccionados:', this.selectedBeneficios);
     } else if (type === 'noticia') {
@@ -224,8 +225,8 @@ export class AddNotificacionComponent implements OnInit {
       tipoNotificacion: this.tipoNotificacion,
       noticias: this.selectedNoticias,  // Enviar todas las noticias seleccionadas con detalles completos
       beneficios: this.selectedBeneficios,  // Enviar todos los beneficios seleccionados con detalles completos
-      regionId: this.selectedRegion,
-      comunaId: this.selectedComuna,
+      regionIds: this.selectedRegion, // Enviar todas las regiones seleccionadas
+      comunaIds: this.selectedComuna, // Enviar todas las comunas seleccionadas
       targetAudience: this.targetAudience,
       scheduled_time: this.fechaProgramada,  // Programar el envío de la notificación
       fecha_creacion: this.fechaCreacion,  // Fecha de creación de la notificación
