@@ -1,23 +1,17 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { SidebarService } from '../../services/sidebar.service'; // Importa tu servicio
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    
-    if (sidebar) {
-      sidebar.classList.toggle('open'); // Abre o cierra el sidebar
-    } else {
-      console.error('Sidebar element not found!');
-    }
+  constructor(private sidebarService: SidebarService) {}
+
+  toggleSidebar(): void {
+    console.log('Toggle Sidebar clicked'); // Asegúrate de que este mensaje aparezca en la consola
+    this.sidebarService.toggleSidebar(); // Llama al servicio para abrir/cerrar el sidebar
   }
 }
-

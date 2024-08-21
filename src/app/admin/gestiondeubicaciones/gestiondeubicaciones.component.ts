@@ -25,4 +25,8 @@ export class GestiondeubicacionesComponent implements OnInit {
       this.ubicaciones = this.ubicaciones.filter(ubicacion => ubicacion.id !== id);
     });
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

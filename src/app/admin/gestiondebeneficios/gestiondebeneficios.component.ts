@@ -54,4 +54,8 @@ export class GestiondebeneficiosComponent implements OnInit {
   verDetalle(id: number): void {
     this.router.navigate([`/admin/gestiondebeneficios/${id}`]);
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

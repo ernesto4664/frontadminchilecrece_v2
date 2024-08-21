@@ -4,14 +4,18 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NoticiaService } from '../../../services/noticia.service';
 import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 @Component({
   selector: 'app-add-noticia',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, EditorModule],
   templateUrl: './add-noticia.component.html',
-  styleUrls: ['./add-noticia.component.scss']
+  styleUrls: ['./add-noticia.component.scss'],
+  providers: [
+    NoticiaService,
+    { provide: TINYMCE_SCRIPT_SRC, useValue: '/assets/tinymce/tinymce.min.js' }
+  ],
 })
 export class AddNoticiaComponent implements OnInit {
   noticia: any = {
@@ -26,11 +30,41 @@ export class AddNoticiaComponent implements OnInit {
   };
   errorMessage: string = '';
   tags: any[] = [];
+  public editorConfig: any;
 
   constructor(
     private noticiaService: NoticiaService,
     private router: Router
-  ) {}
+  ) {
+    this.editorConfig = {
+      height: 500,
+      menubar: false,
+      plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table help wordcount',
+      toolbar: 'undo redo | formatselect | bold italic backcolor | ' +
+               'alignleft aligncenter alignright alignjustify | ' +
+               'bullist numlist outdent indent | removeformat | help',
+      external_plugins: {
+        'advlist': '/assets/tinymce/plugins/advlist/plugin.min.js',
+        'autolink': '/assets/tinymce/plugins/autolink/plugin.min.js',
+        'lists': '/assets/tinymce/plugins/lists/plugin.min.js',
+        'link': '/assets/tinymce/plugins/link/plugin.min.js',
+        'image': '/assets/tinymce/plugins/image/plugin.min.js',
+        'charmap': '/assets/tinymce/plugins/charmap/plugin.min.js',
+        'preview': '/assets/tinymce/plugins/preview/plugin.min.js',
+        'anchor': '/assets/tinymce/plugins/anchor/plugin.min.js',
+        'searchreplace': '/assets/tinymce/plugins/searchreplace/plugin.min.js',
+        'visualblocks': '/assets/tinymce/plugins/visualblocks/plugin.min.js',
+        'code': '/assets/tinymce/plugins/code/plugin.min.js',
+        'fullscreen': '/assets/tinymce/plugins/fullscreen/plugin.min.js',
+        'insertdatetime': '/assets/tinymce/plugins/insertdatetime/plugin.min.js',
+        'media': '/assets/tinymce/plugins/media/plugin.min.js',
+        'table': '/assets/tinymce/plugins/table/plugin.min.js',
+        'help': '/assets/tinymce/plugins/help/plugin.min.js',
+        'wordcount': '/assets/tinymce/plugins/wordcount/plugin.min.js'
+      },
+      license_key: 'dwdmqn666qc4ee5f4f4zmw0gei5lppsqh93g8oikwe0jvwnx'
+    };
+  }
 
   ngOnInit(): void {
     this.loadTags();
@@ -91,5 +125,9 @@ export class AddNoticiaComponent implements OnInit {
         console.error(error);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    console.log('AddNoticiaComponent se está destruyendo');
   }
 }

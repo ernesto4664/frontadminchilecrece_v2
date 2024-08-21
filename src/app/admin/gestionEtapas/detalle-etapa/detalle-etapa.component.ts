@@ -35,4 +35,8 @@ export class DetalleEtapaComponent implements OnInit {
   goBack(): void {
     this.router.navigate(['/admin/gestion-etapas']);
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

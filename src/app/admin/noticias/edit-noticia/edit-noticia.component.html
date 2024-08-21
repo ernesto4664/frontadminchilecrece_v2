@@ -26,8 +26,8 @@
       <input id="titulo" name="titulo" [(ngModel)]="titulo" placeholder="Nuevo Título">
     </div>
     <div class="form-group">
-      <label for="descripcion">Descripción:</label>
-      <textarea id="descripcion" name="descripcion" [(ngModel)]="descripcion" placeholder="Nueva Descripción"></textarea>
+      <label for="descripcion">Descripción</label>
+      <editor id="descripcion" [(ngModel)]="noticia.descripcion" name="descripcion" [init]="editorConfig"></editor>
     </div>
     <div class="form-group">
       <label for="fecha_hora">Fecha y Hora:</label>

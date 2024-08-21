@@ -26,4 +26,8 @@ export class DetalleUbicacionComponent implements OnInit {
       this.ubicacion = data;
     });
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

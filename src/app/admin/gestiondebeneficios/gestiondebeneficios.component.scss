@@ -90,3 +90,14 @@
     margin: 0;
   }
   
+  @media (max-width: 768px) {
+
+    .beneficios-container {
+      padding: 10px !important;
+  }
+
+  .beneficio-content{
+    display: grid;
+  }
+
+  }

@@ -25,4 +25,8 @@ export class GestiondebaseestablecimientosComponent implements OnInit {
       this.baseEstablecimientos = this.baseEstablecimientos.filter(baseEstablecimiento => baseEstablecimiento.id !== id);
     });
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

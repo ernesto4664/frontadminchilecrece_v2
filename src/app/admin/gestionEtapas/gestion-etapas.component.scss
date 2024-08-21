@@ -86,3 +86,39 @@ h1 {
 .delete-button:hover {
   background-color: #c82333;
 }
+
+.see-button {
+  background-color: #32e7a2;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.see-button:hover {
+  background-color: #00a05b;
+  color: #fff;
+}
+
+.edit-button {
+  background-color: #0953e9;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+  background-color: #2375c8;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .container-etapas {
+    padding: 10px;
+  }
+}

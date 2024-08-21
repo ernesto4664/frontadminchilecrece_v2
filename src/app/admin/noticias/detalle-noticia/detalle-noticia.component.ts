@@ -63,4 +63,8 @@ export class DetalleNoticiaComponent implements OnInit {
     }
     return imagePath ? `http://127.0.0.1:8000${imagePath}` : 'assets/default-image.png';
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

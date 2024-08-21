@@ -96,4 +96,7 @@ navigateToEdit(id: number): void {
     }
   }
   
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

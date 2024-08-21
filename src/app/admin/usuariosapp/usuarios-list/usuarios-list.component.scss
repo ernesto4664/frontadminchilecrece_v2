@@ -1,59 +1,84 @@
+/* Estilos generales */
 .alert {
-    color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    font-family: "Montserrat", sans-serif;
-  }
-  
-  h1 {
-    color: #2c3e50;
-    font-size: 28px;
-    margin-bottom: 20px;
-    font-family: "Montserrat", sans-serif;
-    text-align: center;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    font-family: "Montserrat", sans-serif;
-  
-    th, td {
-      padding: 10px;
-      text-align: left;
-      border-bottom: 1px solid #ccc;
-    }
-  
-    th {
-      background-color: #009879;
-      color: #fff;
-      font-weight: bold;
-    }
-  
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-  
-    tr:hover {
-      background-color: #e9ecef;
-    }
-  }
-  
-  .list-unstyled {
-    padding: 0;
-  
-    li {
-      padding: 10px;
-      border-bottom: 1px solid #ccc;
-  
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-  }
-  
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  font-family: "Montserrat", sans-serif;
+}
+
+h1 {
+  color: #2c3e50;
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-family: "Montserrat", sans-serif;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+th {
+  background-color: #009879;
+  color: #fff;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #e9ecef;
+}
+
+.example-accordion-item-header {
+  cursor: pointer;
+  padding: 16px;
+  background-color: #009879;
+  color: #fff;
+  border-bottom: 1px solid #ccc;
+  font-weight: bold;
+}
+
+.example-accordion-item-body {
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-top: none;
+  background-color: #fff;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.grid-item {
+  background-color: #f9f9f9;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.card-body {
+  padding: 8px;
+}

@@ -48,3 +48,11 @@
     background-color: #c82333;
   }
   
+  @media (max-width: 768px) {
+    .table-responsive {
+      overflow-x: auto; /* Habilita el desplazamiento horizontal */
+      -webkit-overflow-scrolling: touch; /* Habilita el desplazamiento suave en dispositivos táctiles */
+      display: block; /* Asegura que el contenedor se comporte como un bloque */
+    }
+
+  }

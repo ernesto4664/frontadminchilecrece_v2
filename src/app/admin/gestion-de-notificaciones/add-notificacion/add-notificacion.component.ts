@@ -236,4 +236,8 @@ export class AddNotificacionComponent implements OnInit {
     console.log('Notificación creada:', notificacionData);
     // Aquí se realizaría la llamada al servicio para guardar la notificación
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

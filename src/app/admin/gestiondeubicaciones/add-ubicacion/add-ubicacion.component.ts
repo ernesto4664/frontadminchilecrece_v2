@@ -28,16 +28,16 @@ export class AddUbicacionComponent implements OnInit {
     private router: Router
   ) {
     this.ubicacionForm = this.fb.group({
-      fk_beneficio: ['', Validators.required],
+      fk_beneficio: [''],
       region_id: [[], Validators.required], // Cambiado a array para selección múltiple
       comuna_id: [[], Validators.required], // Cambiado a array para selección múltiple
-      tipo_establecimiento: ['', Validators.required],
+      tipo_establecimiento: [''],
       nombre_establecimiento: ['', Validators.required],
-      direccion: ['', Validators.required],
-      horarios: ['', Validators.required],
-      contacto: ['', Validators.required],
-      lat: ['', Validators.required],
-      long: ['', Validators.required],
+      direccion: [''],
+      horarios: [''],
+      contacto: [''],
+      lat: [''],
+      long: [''],
       codigo_madre_nuevo: ['', Validators.required],
       id_establecimiento: ['']  // Agregar id_establecimiento al formulario
     });
@@ -116,4 +116,9 @@ export class AddUbicacionComponent implements OnInit {
       console.log("Formulario no válido", this.ubicacionForm.errors);
     }
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
+  
 }

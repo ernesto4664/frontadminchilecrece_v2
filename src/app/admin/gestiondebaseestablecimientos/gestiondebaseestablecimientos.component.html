@@ -1,30 +1,32 @@
-<div class="container">
+<div class="container-estable">
     <h2>Listado de Bases de Establecimientos</h2>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Código Antiguo</th>
-          <th>Código Vigente</th>
-          <th>Código Madre Antiguo</th>
-          <th>Código Madre Nuevo</th>
-          <th>Código Región</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let baseEstablecimiento of baseEstablecimientos">
-          <td>{{ baseEstablecimiento.id }}</td>
-          <td>{{ baseEstablecimiento.codigo_antiguo }}</td>
-          <td>{{ baseEstablecimiento.codigo_vigente }}</td>
-          <td>{{ baseEstablecimiento.codigo_madre_antiguo }}</td>
-          <td>{{ baseEstablecimiento.codigo_madre_nuevo }}</td>
-          <td>{{ baseEstablecimiento.codigo_region }}</td>
-          <td>
-            <button (click)="deleteBaseEstablecimiento(baseEstablecimiento.id)" class="btn btn-danger">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Código Antiguo</th>
+            <th>Código Vigente</th>
+            <th>Código Madre Antiguo</th>
+            <th>Código Madre Nuevo</th>
+            <th>Código Región</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let baseEstablecimiento of baseEstablecimientos">
+            <td>{{ baseEstablecimiento.id }}</td>
+            <td>{{ baseEstablecimiento.codigo_antiguo }}</td>
+            <td>{{ baseEstablecimiento.codigo_vigente }}</td>
+            <td>{{ baseEstablecimiento.codigo_madre_antiguo }}</td>
+            <td>{{ baseEstablecimiento.codigo_madre_nuevo }}</td>
+            <td>{{ baseEstablecimiento.codigo_region }}</td>
+            <td>
+              <button (click)="deleteBaseEstablecimiento(baseEstablecimiento.id)" class="btn btn-danger">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
   </div>
   
