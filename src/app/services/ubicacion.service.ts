@@ -30,11 +30,19 @@ export class UbicacionService {
     return this.http.delete(`${this.apiUrl}/ubicaciones/${id}`);
   }
 
-  getUbicacionesByRegionAndComuna(regionIds: number[], comunaIds: number[]): Observable<any[]> {
-    const params = new HttpParams()
-      .set('regionIds', regionIds.join(','))
-      .set('comunaIds', comunaIds.join(','));
+  getComunasByRegions(regionIds: number[]): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/comunas-by-regions`, { region_ids: regionIds });
+}
   
-    return this.http.get<any[]>(`${this.apiUrl}/ubicaciones-by-regions-and-comunas`, { params });
+  getUbicacionesByRegionsAndComunas(regionIds: number[], comunaIds: number[]): Observable<any[]> {
+    const params = {
+      region_ids: regionIds.join(','),
+      comuna_ids: comunaIds.join(',')
+    };
+    return this.http.get<any[]>(`${this.apiUrl}/ubicaciones`, { params });
+  }
+
+  getAllRegionsWithComunasAndUbicaciones(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/regions-with-comunas-and-ubicaciones`);
   }
 }

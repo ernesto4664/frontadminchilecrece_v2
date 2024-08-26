@@ -1,17 +1,20 @@
 <div class="container">
-    <h2>Detalle de Etapa</h2>
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">{{ etapa.nombre }}</h5>
-        <p class="card-text"><strong>Tipo de Registro:</strong> {{ etapa.tipo_registro_id == 1 || etapa.tipo_registro_id == 3 ? 'Gestación' : 'Crecimiento' }}</p>
-        <p class="card-text" *ngIf="etapa.tipo_registro_id == 2"><strong>Edad Mínima:</strong> {{ etapa.edad_minima }}</p>
-        <p class="card-text" *ngIf="etapa.tipo_registro_id == 2"><strong>Edad Máxima:</strong> {{ etapa.edad_maxima }}</p>
-        <p class="card-text" *ngIf="etapa.tipo_registro_id == 1 || etapa.tipo_registro_id == 3"><strong>Semanas de Embarazo Mínima:</strong> {{ etapa.semanas_embarazo_minima }}</p>
-        <p class="card-text" *ngIf="etapa.tipo_registro_id == 1 || etapa.tipo_registro_id == 3"><strong>Semanas de Embarazo Máxima:</strong> {{ etapa.semanas_embarazo_maxima }}</p>
-        <p class="card-text"><strong>Descripción:</strong></p>
-        <div class="card-text" [innerHTML]="etapa.descripcion"></div>
-        <button (click)="goBack()" class="btn btn-primary">Volver</button>
+  <h2>Detalle de Etapa</h2>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ etapa.nombre }}</h5>
+      <p class="card-text"><strong>Tipo de Registro:</strong> {{ etapa.tipo_registro_id == 1 || etapa.tipo_registro_id == 3 ? 'Gestación' : 'Crecimiento' }}</p>
+      <p class="card-text" *ngIf="etapa.tipo_registro_id == 2"><strong>Edad Mínima:</strong> {{ etapa.edad_minima }}</p>
+      <p class="card-text" *ngIf="etapa.tipo_registro_id == 2"><strong>Edad Máxima:</strong> {{ etapa.edad_maxima }}</p>
+      <p class="card-text" *ngIf="etapa.tipo_registro_id == 1 || etapa.tipo_registro_id == 3"><strong>Semanas de Embarazo Mínima:</strong> {{ etapa.semanas_embarazo_minima }}</p>
+      <p class="card-text" *ngIf="etapa.tipo_registro_id == 1 || etapa.tipo_registro_id == 3"><strong>Semanas de Embarazo Máxima:</strong> {{ etapa.semanas_embarazo_maxima }}</p>
+      <p class="card-text"><strong>Descripción:</strong></p>
+      <div class="card-text" [innerHTML]="etapa.descripcion"></div>
+
+      <div class="container btn">
+        <button (click)="goBack()" class="btn-back">Volver</button>
+        <button (click)="goToEdit()" class="btn-edit">Editar</button>
       </div>
     </div>
   </div>
-  
+</div>

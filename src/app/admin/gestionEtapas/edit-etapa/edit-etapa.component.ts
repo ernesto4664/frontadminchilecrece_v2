@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { EtapaService } from '../../../services/etapa.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { EtapaService } from '../../../services/etapa.service';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 @Component({
@@ -23,7 +22,8 @@ export class EditEtapaComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private etapaService: EtapaService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef // ChangeDetectorRef agregado
   ) {
     this.editorConfig = {
       height: 500,
@@ -56,11 +56,18 @@ export class EditEtapaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = Number(this.route.snapshot.paramMap.get('idetapa'));
+    if (!id) {
+      console.error('ID de etapa inválido');
+      this.router.navigate(['/admin/gestion-etapas']);
+      return;
+    }
+  
     this.etapaService.getEtapa(id).subscribe(
       data => {
         this.etapa = data;
-        this.onTipoRegistroChange();
+        console.log('Etapa cargada:', this.etapa);
+        this.onTipoRegistroChange(); // Llamada después de cargar la etapa
       },
       error => {
         console.error('Error loading etapa', error);
@@ -69,25 +76,26 @@ export class EditEtapaComponent implements OnInit {
   }
 
   onTipoRegistroChange(): void {
-    if (this.etapa.tipo_registro_id === '1' || this.etapa.tipo_registro_id === '3') {
+    const tipoRegistroId = Number(this.etapa.tipo_registro_id); // Convertir a número
+  
+    console.log('Tipo de Registro cambiado:', tipoRegistroId);
+
+    if (tipoRegistroId === 1) { // Gestación
       this.esGestacion = true;
       this.esCrecimiento = false;
-      this.etapa.etapa = 'Gestación';
-    } else if (this.etapa.tipo_registro_id === '2') {
+    } else if (tipoRegistroId === 2) { // Crecimiento
       this.esGestacion = false;
       this.esCrecimiento = true;
-      this.etapa.etapa = 'Crecimiento';
     }
+    
+    this.cdr.detectChanges(); // Forzar la detección de cambios
+    console.log('esGestacion:', this.esGestacion);
+    console.log('esCrecimiento:', this.esCrecimiento);
   }
 
   updateEtapa(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.etapa.tipo_registro_id === '1' || this.etapa.tipo_registro_id === '3') {
-      this.etapa.etapa = 'Gestación';
-    } else if (this.etapa.tipo_registro_id === '2') {
-      this.etapa.etapa = 'Crecimiento';
-    }
-
+    const id = Number(this.route.snapshot.paramMap.get('idetapa')); 
+    
     this.etapaService.updateEtapa(id, this.etapa).subscribe(
       response => {
         this.router.navigate(['/admin/gestion-etapas']);
@@ -99,6 +107,10 @@ export class EditEtapaComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    console.log('UsuariosListComponent se está destruyendo');
+    console.log('EditEtapaComponent se está destruyendo');
+  }
+
+  goBack(): void {
+    this.router.navigate(['/admin/gestion-etapas']);
   }
 }

@@ -36,7 +36,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     // Suscribirse al estado del sidebar para actualizar la variable local
     this.sidebarSubscription = this.sidebarService.sidebarStatus$.subscribe(isOpen => {
       this.isSidebarOpen = isOpen;
-      console.log('Sidebar status changed in component:', isOpen);
+     // console.log('Sidebar status changed in component:', isOpen);
     });
   }
 

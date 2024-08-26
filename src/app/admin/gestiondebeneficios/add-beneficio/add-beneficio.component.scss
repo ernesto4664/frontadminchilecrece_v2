@@ -58,3 +58,12 @@
   }
 
   }
+
+  .my-custom-placeholder .dropdown-list {
+    color: #ccc;
+  }
+  
+  .my-custom-placeholder .dropdown-list:empty::before {
+    content: "Buscar";
+    color: #aaa;
+  }

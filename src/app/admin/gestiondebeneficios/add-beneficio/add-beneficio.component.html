@@ -45,21 +45,35 @@
     </div>
     <div class="form-group">
       <label for="region_id">Región</label>
-      <select id="region_id" formControlName="region_id" class="form-control" multiple>
-        <option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</option>
-      </select>
+      <ng-multiselect-dropdown 
+        [settings]="dropdownSettingsRegion" 
+        [data]="regiones" 
+        [formControlName]="'region_id'"
+        (onSelect)="cargarComunas()" 
+        (onDeSelect)="cargarComunas()" 
+        (onSelectAll)="cargarComunas()" 
+        (onDeSelectAll)="cargarComunas()">
+      </ng-multiselect-dropdown>
     </div>
     <div class="form-group">
       <label for="comuna_id">Comuna</label>
-      <select id="comuna_id" formControlName="comuna_id" class="form-control" multiple>
-        <option *ngFor="let comuna of comunas" [value]="comuna.id">{{ comuna.nombre }}</option>
-      </select>
+      <ng-multiselect-dropdown 
+        [settings]="dropdownSettingsComuna" 
+        [data]="comunas" 
+        [formControlName]="'comuna_id'"
+        (onSelect)="cargarUbicaciones()" 
+        (onDeSelect)="cargarUbicaciones()" 
+        (onSelectAll)="cargarUbicaciones()" 
+        (onDeSelectAll)="cargarUbicaciones()">
+      </ng-multiselect-dropdown>
     </div>
     <div class="form-group">
       <label for="ubicacion_id">Ubicación</label>
-      <select id="ubicacion_id" formControlName="ubicacion_id" class="form-control" multiple>
-        <option *ngFor="let ubicacion of filteredUbicaciones" [value]="ubicacion.id">{{ ubicacion.nombre_establecimiento }}</option>
-      </select>
+      <ng-multiselect-dropdown 
+        [settings]="dropdownSettingsUbicacion" 
+        [data]="filteredUbicaciones" 
+        [formControlName]="'ubicacion_id'">
+      </ng-multiselect-dropdown>
     </div>
     <div class="form-group">
       <label for="requisitos">Requisitos</label>

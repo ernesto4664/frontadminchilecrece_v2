@@ -30,3 +30,33 @@
     margin-top: 20px;
   }
   
+  .btn-edit {
+    background-color: #32e7a2;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-edit:hover {
+    background-color: #00a05b;
+    color: #fff;
+  }
+  
+  .btn-back {
+    margin-right: 10px;
+    background-color: #0953e9;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-back:hover {
+    background-color: #2375c8;
+    color: #fff;
+  }

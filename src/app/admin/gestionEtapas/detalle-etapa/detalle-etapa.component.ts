@@ -36,7 +36,12 @@ export class DetalleEtapaComponent implements OnInit {
     this.router.navigate(['/admin/gestion-etapas']);
   }
 
+  goToEdit(): void {
+    const id = +this.route.snapshot.paramMap.get('idetapa')!;
+    this.router.navigate(['/admin/gestion-etapas/edit', id]); // Redirigir a la vista de edición
+  }
+
   ngOnDestroy(): void {
-    console.log('UsuariosListComponent se está destruyendo');
+    console.log('DetalleEtapaComponent se está destruyendo');
   }
 }

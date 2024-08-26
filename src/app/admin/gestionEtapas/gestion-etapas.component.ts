@@ -12,6 +12,7 @@ import { EtapaService } from './../../services/etapa.service';
 })
 export class GestionEtapasComponent implements OnInit {
   etapas: any[] = [];
+  router: any;
 
   constructor(private etapaService: EtapaService) {}
 
@@ -37,5 +38,9 @@ export class GestionEtapasComponent implements OnInit {
 
   ngOnDestroy(): void {
     console.log('UsuariosListComponent se está destruyendo');
+  }
+
+  editEtapa(etapaId: number): void {
+    this.router.navigate(['/admin/gestion-etapas/edit', etapaId]);
   }
 }

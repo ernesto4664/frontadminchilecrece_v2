@@ -13,7 +13,7 @@ export class SidebarService {
 
   toggleSidebar(): void {
     this.isSidebarOpen$.next(!this.isSidebarOpen$.getValue());
-    console.log('Sidebar status changed:', this.isSidebarOpen$.getValue());
+   // console.log('Sidebar status changed:', this.isSidebarOpen$.getValue());
   }
 
   closeSidebar(): void {
