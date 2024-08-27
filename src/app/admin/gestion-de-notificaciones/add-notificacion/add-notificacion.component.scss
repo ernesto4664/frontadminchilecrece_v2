@@ -24,7 +24,9 @@
     font-weight: bold;
     color: #333;
   }
-  
+  .form-group input.checkbox {
+    width: auto !important;
+  }
   .form-group input,
   .form-group select,
   .form-group textarea {

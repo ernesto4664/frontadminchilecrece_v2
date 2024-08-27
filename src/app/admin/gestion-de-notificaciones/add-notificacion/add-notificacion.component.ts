@@ -5,7 +5,7 @@ import { NoticiaService } from '../../../services/noticia.service';
 import { RegionService } from '../../../services/region.service';  
 import { BeneficioService } from '../../../services/beneficio.service';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
-
+import { NotificacionService } from '../../../services/notificacion.service'; 
 @Component({
   selector: 'app-add-notificacion',
   standalone: true,
@@ -29,6 +29,7 @@ export class AddNotificacionComponent implements OnInit {
   targetAudience: string = 'todos';
   fechaProgramada: string = '';
   fechaCreacion: string = '';
+  programarNotificacion: boolean = false;  
 
   ofertaMunicipal: any = {
     nombre: '',
@@ -36,11 +37,14 @@ export class AddNotificacionComponent implements OnInit {
     archivo: null,
     url: '',
   };
+ofertaOption: any;
+  tipoOferta: any;
 
   constructor(
     private noticiaService: NoticiaService,
     private regionService: RegionService,
-    private beneficioService: BeneficioService
+    private beneficioService: BeneficioService,
+    private notificacionService: NotificacionService 
   ) {
     this.editorConfig = {
       height: 500,
@@ -98,13 +102,13 @@ export class AddNotificacionComponent implements OnInit {
   onFileSelected(event: any) {
     this.ofertaMunicipal.archivo = event.target.files[0];
   }
-
+/*
   onRegionChange(event: any) {
     const selectedOptions = Array.from(event.target.selectedOptions).map((option: any) => +option.value);
     this.selectedRegion = selectedOptions;
     this.loadComunasForRegion(this.selectedRegion);
   }
-
+*/
   loadRegiones() {
     this.regionService.getRegiones().subscribe(
       (data) => {
@@ -116,7 +120,7 @@ export class AddNotificacionComponent implements OnInit {
       }
     );
   }
-
+/*
   loadComunasForRegion(regionIds: number[]) {
     this.regionService.getComunasByRegions(regionIds).subscribe(
         (data) => {
@@ -128,7 +132,7 @@ export class AddNotificacionComponent implements OnInit {
         }
     );
   }
-
+*/
   loadNoticias() {
     this.noticiaService.getNoticias().subscribe(
       (data) => {
@@ -220,20 +224,85 @@ export class AddNotificacionComponent implements OnInit {
     }
 }
 
-  crearNotificacion() {
+crearNotificacion() {
+  
     const notificacionData = {
       tipoNotificacion: this.tipoNotificacion,
-      noticias: this.selectedNoticias,  // Enviar todas las noticias seleccionadas con detalles completos
-      beneficios: this.selectedBeneficios,  // Enviar todos los beneficios seleccionados con detalles completos
-      regionIds: this.selectedRegion, // Enviar todas las regiones seleccionadas (si las hay)
-      comunaIds: this.selectedComuna, // Enviar todas las comunas seleccionadas (si las hay)
+      noticias: this.selectedNoticias,
+      beneficios: this.selectedBeneficios,
+      regionIds: this.selectedRegion, 
+      comunaIds: this.selectedComuna,
       targetAudience: this.targetAudience,
-      scheduled_time: this.fechaProgramada,  // Programar el envío de la notificación
-      fecha_creacion: this.fechaCreacion,  // Fecha de creación de la notificación
+      scheduled_time: this.programarNotificacion ? this.fechaProgramada : null,    
       ofertaMunicipal: this.tipoNotificacion === 'ofertaMunicipal' ? this.ofertaMunicipal : null,
+      
     };
 
-    console.log('Notificación creada:', notificacionData);
-    // Aquí se realizaría la llamada al servicio para guardar la notificación
+    this.notificacionService.crearNotificacion(notificacionData).subscribe(
+      response => {
+        console.log('Notificación creada con éxito:', response);
+        // Manejar la respuesta de éxito aquí (redirección, mostrar mensaje, etc.)
+      },
+      error => {
+        console.error('Error al crear la notificación:', error);
+        // Manejar errores aquí
+      }
+    );
+  } 
+  onRegionChange(event: any) {
+    const selectedOptions = Array.from(event.target.selectedOptions).map((option: any) => option.value);
+
+    if (selectedOptions.includes('all')) {
+        // Si "Seleccionar todas" está seleccionado, seleccionar todas las regiones
+        this.selectedRegion = this.regiones.map(region => region.id);
+        this.loadComunasForRegion(this.selectedRegion);
+    } else {
+        // Convertir solo los valores seleccionados a números
+        this.selectedRegion = selectedOptions.map(value => +value);
+        this.loadComunasForRegion(this.selectedRegion);
+    }
+}
+
+onComunaChange(event: any) {
+    const selectedOptions = Array.from(event.target.selectedOptions).map((option: any) => option.value);
+
+    if (selectedOptions.includes('all')) {
+        // Si "Seleccionar todas" está seleccionado, seleccionar todas las comunas
+        this.selectedComuna = this.comunas.map(comuna => comuna.id);
+    } else {
+        // Convertir solo los valores seleccionados a números
+        this.selectedComuna = selectedOptions.map(value => +value);
+    }
+}
+
+loadComunasForRegion(regionIds: number[]) {
+    this.regionService.getComunasByRegions(regionIds).subscribe(
+        (data) => {
+            this.comunas = data;
+
+            if (this.selectedRegion.length === this.regiones.length) {
+                this.selectedComuna = this.comunas.map(comuna => comuna.id);
+            }
+
+            console.log('Comunas cargadas:', this.comunas);
+        },
+        (error) => {
+            console.error('Error al cargar comunas:', error);
+        }
+    );
+}
+onOfertaOptionChange(event: any) {
+  this.tipoOferta = event.target.value;
+
+  // Reiniciar los datos de oferta municipal según el tipo de oferta seleccionado
+  if (this.tipoOferta === 'contenido') {
+    this.ofertaMunicipal.url = '';
+  } else if (this.tipoOferta === 'url') {
+    this.ofertaMunicipal.nombre = '';
+    this.ofertaMunicipal.descripcion = '';
+    this.ofertaMunicipal.archivo = null;
   }
+}
+
+
 }
