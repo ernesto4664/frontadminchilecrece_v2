@@ -1,101 +1,113 @@
 <div class="notificacion-container">
-    <h2>Crear Notificación</h2>
-  
-    <div class="form-group">
+  <h2>Crear Notificación</h2>
+
+  <div class="form-group">
       <label for="tipoNotificacion">Tipo de Notificación:</label>
       <select id="tipoNotificacion" (change)="onTipoNotificacionChange($event)" class="form-control">
-        <option value="">Seleccione un tipo de notificación</option>
-        <option value="noticia">Noticia</option>
-        <option value="beneficio">Beneficio</option>
-        <option value="ofertaMunicipal">Oferta Municipal</option>
+          <option value="">Seleccione un tipo de notificación</option>
+          <option value="noticia">Noticia</option>
+          <option value="beneficio">Beneficio</option>
+          <option value="ofertaMunicipal">Oferta Municipal</option>
       </select>
-    </div>
-  
-    <!-- Sección para Seleccionar Noticias -->
-    <div *ngIf="tipoNotificacion === 'noticia'" class="form-group">
+  </div>
+
+  <!-- Sección para Seleccionar Noticias -->
+  <div *ngIf="tipoNotificacion === 'noticia'" class="form-group">
       <p>Seleccione las noticias:</p>
       <div *ngFor="let noticia of noticias" class="checkbox-group">
-        <input
-          type="checkbox"
-          [value]="noticia.id"
-          (change)="onCheckboxChange($event, noticia.id, 'noticia')"
-        />
-        <label style="margin-left: 10px;">{{ noticia.titulo }}</label>
+          <input
+              type="checkbox"
+              [value]="noticia.id"
+              (change)="onCheckboxChange($event, noticia.id, 'noticia')"
+          />
+          <label style="margin-left: 10px;">{{ noticia.titulo }}</label>
       </div>
-    </div>
-  
-    <!-- Sección para Seleccionar Beneficios -->
-    <div *ngIf="tipoNotificacion === 'beneficio'" class="form-group">
+  </div>
+
+  <!-- Sección para Seleccionar Beneficios -->
+  <div *ngIf="tipoNotificacion === 'beneficio'" class="form-group">
       <p>Seleccione los beneficios:</p>
       <div *ngFor="let beneficio of beneficios" class="checkbox-group">
-        <input
-          type="checkbox"
-          [value]="beneficio.id"
-          (change)="onCheckboxChange($event, beneficio.id, 'beneficio')"
-        />
-        <label style="margin-left: 10px;">{{ beneficio.nombre }}</label>
+          <input
+              type="checkbox"
+              [value]="beneficio.id"
+              (change)="onCheckboxChange($event, beneficio.id, 'beneficio')"
+          />
+          <label style="margin-left: 10px;">{{ beneficio.nombre }}</label>
       </div>
-    </div>
-  
-    <!-- Sección para Oferta Municipal -->
-    <div *ngIf="tipoNotificacion === 'ofertaMunicipal'" class="form-group">
-      <p>Rellene los detalles de la oferta municipal:</p>
+  </div>
+
+  <!-- Sección para Oferta Municipal -->
+  <div *ngIf="tipoNotificacion === 'ofertaMunicipal'" class="form-group">
+      <p>Seleccione una opción:</p>
+      <select id="ofertaOption" [(ngModel)]="ofertaOption" (change)="onOfertaOptionChange($event)" class="form-control">
+          <option value="">Seleccione una opción</option>
+          <option value="contenido">Agregar Contenido</option>
+          <option value="url">Agregar URL</option>
+      </select>
+  </div>
+
+  <!-- Campos para Agregar Contenido -->
+  <div *ngIf="ofertaOption === 'contenido'" class="form-group">
       <label for="nombreOferta">Nombre:</label>
       <input id="nombreOferta" [(ngModel)]="ofertaMunicipal.nombre" class="form-control" />
-  
+
       <label style="margin-top: 10px;" for="descripcionOferta">Descripción:</label>
       <editor id="descripcionOferta" [(ngModel)]="ofertaMunicipal.descripcion" [init]="editorConfig"></editor>
-  
+
       <label style="margin-top: 10px;" for="archivoOferta">Archivo:</label>
       <input id="archivoOferta" type="file" (change)="onFileSelected($event)" class="form-control" />
-  
-      <label style="margin-top: 10px;" for="urlOferta">URL:</label>
-      <input id="urlOferta" [(ngModel)]="ofertaMunicipal.url" class="form-control" />
-    </div>
-  
-    <!-- Selección de Región -->
-    <div class="form-group" *ngIf="tipoNotificacion !== 'beneficio'">
-        <label for="region">Región:</label>
-        <select id="region" (change)="onRegionChange($event)" class="form-control" multiple>
-        <option value="">Seleccione una región</option>
-        <option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</option>
-        </select>
-    </div>
+  </div>
 
-    <!-- Selección de Comuna -->
-    <div class="form-group" *ngIf="tipoNotificacion !== 'beneficio'">
-        <label for="comuna">Comuna:</label>
-        <select id="comuna" [(ngModel)]="selectedComuna" class="form-control" multiple>
-        <option value="">Seleccione una comuna</option>
-        <option *ngFor="let comuna of comunas" [value]="comuna.id">{{ comuna.nombre }}</option>
-        </select>
-    </div>
-  
-    <!-- Target Audience -->
-    <div class="form-group">
+  <!-- Campo para Agregar URL -->
+  <div *ngIf="ofertaOption === 'url'" class="form-group">
+      <label for="urlOferta">URL:</label>
+      <input id="urlOferta" [(ngModel)]="ofertaMunicipal.url" class="form-control" />
+  </div>
+
+  <!-- Selección de Región -->
+  <div class="form-group" *ngIf="tipoNotificacion !== 'beneficio'">
+      <label for="region">Región:</label>
+      <select id="region" (change)="onRegionChange($event)" class="form-control" multiple>
+          <option value="all">Seleccionar todas</option> <!-- Opción para seleccionar todas las regiones -->
+          <option *ngFor="let region of regiones" [value]="region.id">{{ region.nombre }}</option>
+      </select>
+  </div>
+
+  <!-- Selección de Comuna -->
+  <div class="form-group" *ngIf="tipoNotificacion !== 'beneficio'">
+      <label for="comuna">Comuna:</label>
+      <select id="comuna" (change)="onComunaChange($event)" class="form-control" multiple>
+          <option value="all">Seleccionar todas</option> <!-- Opción para seleccionar todas las comunas -->
+          <option *ngFor="let comuna of comunas" [value]="comuna.id">{{ comuna.nombre }}</option>
+      </select>
+  </div>
+
+  <!-- Público objetivo -->
+  <div class="form-group">
       <label for="targetAudience">Público objetivo:</label>
       <select id="targetAudience" [(ngModel)]="targetAudience" class="form-control">
-        <option value="todos">Todos</option>
-        <option value="registrados">Usuarios Registrados</option>
-        <option value="no-registrados">Usuarios No Registrados</option>
+          <option value="todos">Todos</option>
+          <option value="registrados">Usuarios Registrados</option>
+          <option value="no-registrados">Usuarios No Registrados</option>
       </select>
-    </div>
-  
-    <!-- Fecha de Creación -->
-    <div class="form-group">
-      <label for="fechaCreacion">Fecha de Creación:</label>
-      <input id="fechaCreacion" type="datetime-local" [(ngModel)]="fechaCreacion" class="form-control" />
-    </div>
-  
-    <!-- Fecha Programada -->
-    <div class="form-group">
-      <label for="fechaProgramada">Fecha Programada:</label>
-      <input id="fechaProgramada" type="datetime-local" [(ngModel)]="fechaProgramada" class="form-control" />
-    </div>
-  
-    <!-- Botón para Crear Notificación -->
-    <div class="form-group">
-      <button (click)="crearNotificacion()" class="btn btn-primary">Crear Notificación</button>
-    </div>
+  </div>
+
+  <div class="form-group">
+      <label>
+          ¿Desea programar la notificación?
+      </label>
+      <label>Si<input type="checkbox" [(ngModel)]="programarNotificacion" class="checkbox"/></label>
   </div>
   
+  <!-- Fecha Programada -->
+  <div class="form-group" *ngIf="programarNotificacion">
+      <label for="fechaProgramada">Fecha Programada:</label>
+      <input id="fechaProgramada" type="datetime-local" [(ngModel)]="fechaProgramada" class="form-control" />
+  </div>
+
+  <!-- Botón para Crear Notificación -->
+  <div class="form-group">
+      <button (click)="crearNotificacion()" class="btn btn-primary">Crear Notificación</button>
+  </div>
+</div>
