@@ -9,4 +9,8 @@ import { RouterModule } from '@angular/router';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {}
+export class DashboardComponent {
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
+}

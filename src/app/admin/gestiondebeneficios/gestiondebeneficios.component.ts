@@ -46,12 +46,24 @@ export class GestiondebeneficiosComponent implements OnInit {
     if (imagePath instanceof File) {
       return URL.createObjectURL(imagePath);
     }
-    const url = imagePath ? `http://127.0.0.1:8000/storage/${imagePath}` : 'assets/default-image.png';
-    console.log('Image URL:', url);
-    return url;
+    if (imagePath) {
+      // Si la ruta ya contiene '/storage/', no se agrega de nuevo
+      return imagePath.startsWith('/storage/')
+        ? `http://127.0.0.1:8000${imagePath}`
+        : `http://127.0.0.1:8000/storage/${imagePath}`;
+    }
+    return 'assets/default-image.png'; // Ruta a una imagen por defecto si no se proporciona imagen
   }
 
   verDetalle(id: number): void {
     this.router.navigate([`/admin/gestiondebeneficios/${id}`]);
+  }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
+
+  editarBeneficio(id: number): void {
+    this.router.navigate(['/admin/gestiondebeneficios/edit', id]); // Redirigir a la vista de edición
   }
 }

@@ -26,4 +26,8 @@ export class DetalleBaseEstablecimientoComponent implements OnInit {
       this.baseEstablecimiento = data;
     });
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

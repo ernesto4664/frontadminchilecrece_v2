@@ -42,4 +42,8 @@ export class AddTagComponent implements OnInit {
       }
     });
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

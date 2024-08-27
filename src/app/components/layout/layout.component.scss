@@ -12,7 +12,12 @@ main {
   width: calc(100% - 250px); /* Calcula el ancho restante para el contenido */
 
   @media (max-width: 768px) {
-    margin-left: 0; /* En pantallas pequeñas, el contenido ocupa todo el ancho */
+    margin-left: 0px; /* En pantallas pequeñas, el contenido ocupa todo el ancho */
     width: 100%; /* Asegura que el contenido ocupe todo el ancho en pantallas pequeñas */
+  }
+}
+@media (max-width: 768px) {
+  .content {
+    padding: 0px !important; /* Elimina el padding en móviles para maximizar el espacio */
   }
 }

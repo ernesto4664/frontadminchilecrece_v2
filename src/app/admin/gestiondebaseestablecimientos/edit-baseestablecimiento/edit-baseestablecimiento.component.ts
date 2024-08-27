@@ -50,4 +50,8 @@ export class EditBaseEstablecimientoComponent implements OnInit {
       );
     }
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

@@ -75,4 +75,8 @@ export class AddEtapaComponent {
       }
     );
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

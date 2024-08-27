@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-etapas">
   <h1>Gestión de Etapas</h1>
   <a routerLink="/admin/gestion-etapas/add" class="add-link">Añadir Nueva Etapa</a>
   <table class="styled-table">
@@ -12,8 +12,8 @@
       <tr *ngFor="let etapa of etapas">
         <td>{{ etapa.nombre }}</td>
         <td>
-          <a [routerLink]="['/admin/gestion-etapas', etapa.id]" class="action-link">Ver</a>
-          <a [routerLink]="['/admin/gestion-etapas/edit', etapa.id]" class="action-link">Editar</a>
+          <a [routerLink]="['/admin/gestion-etapas', etapa.id]" class="see-button action-link">Ver</a>
+          <a [routerLink]="['/admin/gestion-etapas/edit', etapa.id]" class="edit-button action-link">Editar</a>
           <button (click)="deleteEtapa(etapa.id)" class="delete-button">Eliminar</button>
         </td>
       </tr>

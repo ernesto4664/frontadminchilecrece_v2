@@ -7,10 +7,13 @@ import { Usuario, Familiar } from '../../../models/interfaces';
 import { EtapaService } from '../../../services/etapa.service';
 import { Observable, forkJoin, of } from 'rxjs'; 
 import { catchError, map, switchMap } from 'rxjs/operators';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, MatExpansionModule, BrowserAnimationsModule, CdkAccordionModule],
   selector: 'app-usuarios-list',
   templateUrl: './usuarios-list.component.html',
   styleUrls: ['./usuarios-list.component.scss']
@@ -83,5 +86,9 @@ export class UsuariosListComponent implements OnInit {
       age--;
     }
     return age;
+  }
+
+    ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
   }
 }

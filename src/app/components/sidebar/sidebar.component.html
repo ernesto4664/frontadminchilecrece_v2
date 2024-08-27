@@ -1,5 +1,6 @@
 <div class="main-container">
-  <div class="sidebar" id="sidebar">
+  <div class="sidebar" id="sidebar" [class.open]="isSidebarOpen">
+    <button class="close-btn mobile-only" (click)="closeSidebar()">×</button>
     <nav>
       <ul>
         <!-- Opciones que ya estaban en el sidebar -->
@@ -28,7 +29,7 @@
         <li (click)="toggleMenu('usuariosapp')" [class.open]="menuState['usuariosapp']">
           <i class="fas fa-users"></i> Usuarios registrados en la App
           <ul style="padding: 20px 15px;" *ngIf="menuState['usuariosapp']">
-            <li><a routerLink="/usuariosapp">Ver a todos los usuarios registrados en la app</a></li>
+            <li><a routerLink="/admin/usuariosapp">Ver a todos los usuarios registrados en la app</a></li>
           </ul>
         </li>
         <!-- Nuevos módulos -->
@@ -65,7 +66,7 @@
           <a href="/profile"><i class="fas fa-user"></i> Profile</a>
         </li>
         <li class="mobile-only">
-          <a href="/admin"><i class="fas fa-user"></i> Dasboard Admin</a>
+          <a href="/admin"><i class="fas fa-user"></i> Dashboard Admin</a>
         </li>
         <li class="mobile-only">
           <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
@@ -76,4 +77,5 @@
   <div class="content">
     <!-- Aquí va el contenido principal -->
   </div>
+  <div class="overlay" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
 </div>

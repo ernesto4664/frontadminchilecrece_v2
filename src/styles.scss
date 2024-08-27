@@ -22,3 +22,19 @@ body{
     bottom: 0;
     width: 100%;
   }
+
+  @media (max-width: 768px) {
+
+    .container {
+      display: inline-flex !important;
+      flex-wrap: nowrap !important;
+      width: 100% !important;
+  }
+    .content {
+      padding: 0px !important; /* Elimina el padding en móviles para maximizar el espacio */
+    }
+
+    main {
+      padding: 0px !important;
+    }
+  }

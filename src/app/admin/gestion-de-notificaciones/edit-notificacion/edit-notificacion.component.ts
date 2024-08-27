@@ -9,5 +9,7 @@ import { Component } from '@angular/core';
   
 })
 export class EditNotificacionComponent {
-
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

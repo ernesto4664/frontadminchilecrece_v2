@@ -1,14 +1,35 @@
 <div class="container mt-5">
   <h2 class="mb-4">Editar Etapa</h2>
+
+  <!-- Vista previa de la etapa -->
+  <div *ngIf="etapa; else loading" class="etapa-preview mb-4">
+    <h4>Vista previa de datos actuales</h4>
+    <p><strong>Nombre:</strong> {{ etapa.nombre || 'No disponible' }}</p>
+    <p><strong>Descripción:</strong></p>
+    <div class="mihtml" [innerHTML]="etapa.descripcion || 'No disponible'"></div>
+    <p><strong>Tipo de Registro:</strong> {{ etapa.tipo_registro_id == 1 ? 'Gestación' : 'Crecimiento' }}</p>
+    <p *ngIf="etapa.tipo_registro_id == 1">
+      <strong>Semanas de Embarazo:</strong> {{ etapa.semanas_embarazo_minima || 'No disponible' }} - {{ etapa.semanas_embarazo_maxima || 'No disponible' }}
+    </p>
+    <p *ngIf="etapa.tipo_registro_id == 2">
+      <strong>Edad:</strong> 
+      <span> {{ etapa.edad_minima !== null && etapa.edad_minima !== undefined ? etapa.edad_minima : 'No disponible' }}</span>
+      -
+      <span>{{ etapa.edad_maxima !== null && etapa.edad_maxima !== undefined ? etapa.edad_maxima : 'No disponible' }}</span> años
+    </p> 
+  </div>
+
   <form (ngSubmit)="updateEtapa()">
     <div class="form-group mb-3">
       <label for="nombre" class="form-label">Nombre</label>
       <input type="text" id="nombre" [(ngModel)]="etapa.nombre" name="nombre" required class="form-control">
     </div>
-    <div class="form-group">
+
+    <div class="form-group mb-3">
       <label for="descripcion" class="form-label">Descripción</label>
       <editor [(ngModel)]="etapa.descripcion" name="descripcion" [init]="editorConfig"></editor>
     </div>
+
     <div class="form-group mb-3">
       <label for="tipo_registro_id" class="form-label">Tipo de Registro</label>
       <select id="tipo_registro_id" [(ngModel)]="etapa.tipo_registro_id" name="tipo_registro_id" (change)="onTipoRegistroChange()" required class="form-select">
@@ -16,22 +37,34 @@
         <option value="2">Crecimiento</option>
       </select>
     </div>
+
+    <!-- Campos de semanas de embarazo para gestación -->
     <div *ngIf="esGestacion" class="form-group mb-3">
       <label for="semanas_embarazo_minima" class="form-label">Semanas de Embarazo Mínima</label>
       <input type="number" id="semanas_embarazo_minima" [(ngModel)]="etapa.semanas_embarazo_minima" name="semanas_embarazo_minima" class="form-control">
     </div>
+
     <div *ngIf="esGestacion" class="form-group mb-3">
       <label for="semanas_embarazo_maxima" class="form-label">Semanas de Embarazo Máxima</label>
       <input type="number" id="semanas_embarazo_maxima" [(ngModel)]="etapa.semanas_embarazo_maxima" name="semanas_embarazo_maxima" class="form-control">
     </div>
+
+    <!-- Campos de edades para crecimiento -->
     <div *ngIf="esCrecimiento" class="form-group mb-3">
       <label for="edad_minima" class="form-label">Edad Mínima</label>
       <input type="number" id="edad_minima" [(ngModel)]="etapa.edad_minima" name="edad_minima" class="form-control">
     </div>
+
     <div *ngIf="esCrecimiento" class="form-group mb-3">
       <label for="edad_maxima" class="form-label">Edad Máxima</label>
       <input type="number" id="edad_maxima" [(ngModel)]="etapa.edad_maxima" name="edad_maxima" class="form-control">
     </div>
+
     <button type="submit" class="btn btn-primary">Guardar</button>
   </form>
+  <button (click)="goBack()" class="btn btn-primaryss">Volver</button>
 </div>
+
+<ng-template #loading>
+  <p>Cargando datos de la etapa...</p>
+</ng-template>

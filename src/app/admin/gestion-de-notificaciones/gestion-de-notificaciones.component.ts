@@ -9,5 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./gestion-de-notificaciones.component.scss'],
 })
 export class GestiondeNotificacionesComponent {
-  // Aquí puedes agregar la lógica del componente
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

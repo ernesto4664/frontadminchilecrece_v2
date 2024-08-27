@@ -28,6 +28,36 @@ app-sidebar {
   flex-shrink: 0; /* Sidebar no debe encogerse */
   display: flex;
   flex-direction: column;
+  z-index: 30; /* Asegura que esté sobre el overlay */
+  position: relative;
+  overflow-y: auto; /* Agregar scroll vertical si el contenido es más largo que el contenedor */
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #fff;
+  cursor: pointer;
+  display: none; /* Oculto por defecto */
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 20; /* Asegura que esté debajo del sidebar */
+}
+
+.overlay.show {
+  display: block;
 }
 
 .content {
@@ -38,6 +68,7 @@ app-sidebar {
 nav ul {
   list-style: none;
   padding: 0;
+  margin: 0; /* Eliminar márgenes para evitar desbordamiento */
 }
 
 nav ul li {
@@ -121,30 +152,53 @@ footer {
   flex-shrink: 0;
 }
 
+/* Estilos específicos para tablets y móviles */
 @media (max-width: 1024px) {
+  .sidebar {
+    /* Mantiene el sidebar en su posición original para pantallas más grandes */
+    position: relative;
+    width: 250px; /* Ancho fijo para tablets */
+    height: auto; /* Altura automática */
+    transform: none; /* Sin transformaciones */
+    box-shadow: none; /* Sin sombra */
+  }
+
   .mobile-only {
-    display: none; /* Mostrar elementos solo en pantallas pequeñas y tablets */
+    display: block !important; /* Mostrar elementos en pantallas pequeñas y tablets */
   }
 }
 
+/* Estilos específicos para móviles */
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;
     top: 0;
-    right: -250px; /* Ocultar el sidebar fuera de la vista */
+    right: 0;
     width: 250px;
     height: 100%;
-    background-color: #00BAC8;
-    z-index: 1000;
-    transition: right 0.3s ease-in-out;
-  }
-  
-  .sidebar.open {
-    right: 0; /* Mostrar el sidebar al hacer clic en el menú */
+    background: #00BAC8;
+    z-index: 20;
+    padding: 20px;
+    box-shadow: -2px 0 3px rgba(0, 0, 0, 0.2); /* Ajusta la opacidad de la sombra */
+    transform: translateX(100%); /* Oculto fuera de la pantalla por defecto */
+    transition: transform 0.3s ease;
+    overflow-y: auto; /* Permite el scroll en el sidebar */
   }
 
-  .content {
-    margin-left: 0; /* Asegura que el contenido ocupe toda la pantalla cuando el sidebar está oculto */
-    transition: margin-left 0.3s ease-in-out;
+  .sidebar.open {
+    transform: translateX(0); /* Muestra el sidebar cuando está abierto */
+  }
+
+  .close-btn {
+    display: block; /* Mostrar el botón de cerrar solo en móvil */
+  }
+
+  .overlay {
+   // display: block;
+    background: rgba(0, 0, 0, 0.3); /* Reduce la opacidad del overlay */
+  }
+
+  .overlay.show {
+    display: block;
   }
 }

@@ -62,4 +62,8 @@ export class NoticiasComponent implements OnInit {
       this.router.navigate(['/admin/noticias', id]);
     }
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

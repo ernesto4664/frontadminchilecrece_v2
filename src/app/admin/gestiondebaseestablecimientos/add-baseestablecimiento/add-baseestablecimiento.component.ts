@@ -43,4 +43,8 @@ export class AddBaseEstablecimientoComponent {
       console.error('Form is not valid');
     }
   }
+
+  ngOnDestroy(): void {
+    console.log('UsuariosListComponent se está destruyendo');
+  }
 }

@@ -23,7 +23,7 @@ export class EtapaService {
   }
 
   updateEtapa(id: number, etapa: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, etapa);
+    return this.http.put(`${this.apiUrl}/${id}`, etapa); // Quitar el 'etapas/' adicional
   }
 
   deleteEtapa(id: number): Observable<any> {
